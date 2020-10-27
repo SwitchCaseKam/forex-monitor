@@ -19,10 +19,10 @@
         &nbsp;&nbsp;<b>{{currencyName}}</b> {{currencies.get(currencyName).name}}
       </ng-template>
       <ng-container *ngIf="currencies.get(currencyName)?.additionalInfo?.valueChange > 0">
-        &nbsp;&nbsp;<img src="../../../assets/icons/green-up-arrow.ico"><br>
+        &nbsp;&nbsp;<img src="assets/icons/green-up-arrow.ico"><br>
       </ng-container>
       <ng-container *ngIf="currencies.get(currencyName)?.additionalInfo?.valueChange < 0">
-        &nbsp;&nbsp;<img src="../../../assets/icons/red-down-arrow.ico"><br>
+        &nbsp;&nbsp;<img src="assets/icons/red-down-arrow.ico"><br>
        </ng-container>
 
        Bieżący kurs: <b>{{currencies.get(currencyName).value}} {{baseCurrency}}</b><br>

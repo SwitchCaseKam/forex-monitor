@@ -14,13 +14,13 @@
         <ng-container *ngFor="let currencyName of availableCurrencies">
           <mat-option value="{{currencyName}}">
             <img src='https://www.countryflags.io/{{currencyName.substring(0,2)}}/flat/64.png'>
-            {{ currencyName }} {{currenciesFullNames?.get('PLN')}}
+            {{ currencyName }} {{currenciesFullNames?.get(currencyName)}}
           </mat-option>
         </ng-container>
       </mat-select>
 
       <div class='exchange-icon'>
-        <img src="../../../assets/icons/exchange-arrows.ico">
+        <img src="assets/icons/exchange-arrows.ico">
       </div>
 
       <mat-select id='to-field' (change)="handleSelectionEvent($event)" [(ngModel)]="toCurrency">
@@ -28,7 +28,7 @@
         <ng-container *ngFor="let currencyName of availableCurrencies">
           <mat-option value="{{currencyName}}">
             <img src='https://www.countryflags.io/{{currencyName.substring(0,2)}}/flat/64.png'>
-            {{ currencyName }} {{currenciesFullNames?.get('PLN')}}
+            {{ currencyName }} {{currenciesFullNames?.get(currencyName)}}
           </mat-option>
         </ng-container>
       </mat-select>
