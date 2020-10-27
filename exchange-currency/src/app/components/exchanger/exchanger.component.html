@@ -1,0 +1,58 @@
+<div class='container'>
+  <br>
+  <div class='exchanger-placeholder'>
+    <h3>Wymiana walut</h3>
+
+    <mat-form-field id='amount-field'>
+      <mat-label>Mam</mat-label>
+      <input matInput [(ngModel)]="amount">
+    </mat-form-field>
+
+    <div class='selects-form'>
+      <mat-select id='from-field' (change)="handleSelectionEvent($event)" [(ngModel)]="fromCurrency">
+        <mat-option value="PLN"><b>PLN</b> {{currenciesFullNames?.get('PLN')}}</mat-option>
+        <ng-container *ngFor="let currencyName of availableCurrencies">
+          <mat-option value="{{currencyName}}">
+            <img src='https://www.countryflags.io/{{currencyName.substring(0,2)}}/flat/64.png'>
+            {{ currencyName }} {{currenciesFullNames?.get('PLN')}}
+          </mat-option>
+        </ng-container>
+      </mat-select>
+
+      <div class='exchange-icon'>
+        <img src="../../../assets/icons/exchange-arrows.ico">
+      </div>
+
+      <mat-select id='to-field' (change)="handleSelectionEvent($event)" [(ngModel)]="toCurrency">
+        <mat-option value="EUR"><b>EUR</b> {{currenciesFullNames?.get('EUR')}}</mat-option>
+        <ng-container *ngFor="let currencyName of availableCurrencies">
+          <mat-option value="{{currencyName}}">
+            <img src='https://www.countryflags.io/{{currencyName.substring(0,2)}}/flat/64.png'>
+            {{ currencyName }} {{currenciesFullNames?.get('PLN')}}
+          </mat-option>
+        </ng-container>
+      </mat-select>
+    </div>
+
+    <br>
+    <button mat-button color="primary" id='exchanger-calculation-button' (click)="calculateExchange()">Wymień</button>
+    <br>
+
+    <br>
+    <div class='exchange-result' *ngIf="exchageRateInfo">
+      <h2>
+        <b>{{ exchageRateInfo?.amount }} {{ exchageRateInfo?.fromCurrency }}</b>
+        =
+        <b>{{ exchageRateInfo?.amountAfterExchange }} {{ exchageRateInfo?.toCurrency }}</b>
+      </h2><br>
+      1 {{ exchageRateInfo?.fromCurrency }} = {{ exchageRateInfo?.rate }} {{ exchageRateInfo?.toCurrency }}<br>
+      1 {{ exchageRateInfo?.toCurrency }} = {{ 1 / exchageRateInfo?.rate }} {{ exchageRateInfo?.fromCurrency }}{{ exchageRateInfo?.fromCurrency }}<br>
+
+    </div>
+
+    <div class='date' *ngIf="exchageRateInfo?.date">
+      Data: <b>{{exchageRateInfo?.date}}</b>
+    </div>
+
+  </div>
+</div>
