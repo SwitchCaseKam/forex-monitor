@@ -18,7 +18,7 @@
         <img src='https://www.countryflags.io/{{currencyName.substring(0,2)}}/flat/64.png'>
         &nbsp;&nbsp;<b>{{currencyName}}</b> {{currencies.get(currencyName).name}}
       </ng-template>
-      <ng-container *ngIf="currencies.get(currencyName)?.additionalInfo?.valueChange > 0">
+      <ng-container *ngIf="currencies.get(currencyName)?.additionalInfo?.valueChange >= 0">
         &nbsp;&nbsp;<img src="assets/icons/green-up-arrow.ico"><br>
       </ng-container>
       <ng-container *ngIf="currencies.get(currencyName)?.additionalInfo?.valueChange < 0">

@@ -6,6 +6,9 @@
   position: relative;
 }
 
+.navbar {
+  background-color: #427AA1;
+}
 .p {
   font: 'Calibri';
 }
@@ -20,8 +23,12 @@
 
 .logo {
   display: inline-block;
-  float: right;
+  /* float: right; */
   /* position: absolute;
   top: 10%; */
   /* float: right; */
+}
+
+.navbar-brand {
+  text-align: center;
 }

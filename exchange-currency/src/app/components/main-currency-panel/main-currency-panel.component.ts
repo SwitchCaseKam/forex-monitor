@@ -28,6 +28,7 @@ export class MainCurrencyPanelComponent implements OnInit, OnDestroy {
         this.availableCurrencies = Array.from(exchangeRatesData.keys());
         this.currenciesNames = this.availableCurrencies.filter(
           cur => cur !== this.exchangeRatesService.getBaseCurrency());
+        this.currenciesNames = this.moveMainCurrenciesToTheBeggining(this.currenciesNames);
       }
     );
   }
@@ -39,5 +40,17 @@ export class MainCurrencyPanelComponent implements OnInit, OnDestroy {
   public handleSelectionEvent(event: Event): void {
     this.baseCurrency = event.target['value'];
     this.exchangeRatesService.setBaseCurrency(this.baseCurrency);
+  }
+
+  private moveMainCurrenciesToTheBeggining(allCurrencies: string[]): string[] {
+    const mainCurrencies = ['EUR', 'USD', 'GBP', 'CHF'];
+    mainCurrencies.forEach(cur => {
+      if (allCurrencies.includes(cur)) {
+        allCurrencies.splice(allCurrencies.indexOf(cur), 1);
+      }
+    });
+    const sortedCurrencies = mainCurrencies.concat(allCurrencies)
+    sortedCurrencies.splice(sortedCurrencies.indexOf(this.exchangeRatesService.getBaseCurrency()), 1);
+    return sortedCurrencies;
   }
 }
