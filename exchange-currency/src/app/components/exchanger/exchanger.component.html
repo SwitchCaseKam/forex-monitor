@@ -9,6 +9,9 @@
     </mat-form-field>
 
     <div class='selects-form'>
+      <div class='exchange-icon'>
+        <img src='https://www.countryflags.io/{{fromCurrency.substring(0,2)}}/flat/64.png'>
+      </div>
       <mat-select id='from-field' (change)="handleSelectionEvent($event)" [(ngModel)]="fromCurrency">
         <mat-option value="PLN"><b>PLN</b> {{currenciesFullNames?.get('PLN')}}</mat-option>
         <ng-container *ngFor="let currencyName of availableCurrencies">
@@ -31,7 +34,10 @@
             {{ currencyName }} {{currenciesFullNames?.get(currencyName)}}
           </mat-option>
         </ng-container>
-      </mat-select>
+      </mat-select><br>
+      <div class='exchange-icon'>
+        <img src='https://www.countryflags.io/{{toCurrency.substring(0,2)}}/flat/64.png'>
+      </div>
     </div>
 
     <br>
