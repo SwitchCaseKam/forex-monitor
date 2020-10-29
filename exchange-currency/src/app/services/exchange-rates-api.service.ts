@@ -50,10 +50,8 @@ export class ExchangeRatesApiService {
     base: string = this.defaultBase,
     periodDates: string[] = this.getDefaultPeriodDates()
   ): Observable<PeriodExchangesRatesApiModel> {
-    // const startAt = periodDates[0]
-    // const endAt = periodDates[1];
-    const startAt = '2020-10-21';
-    const endAt = '2020-10-22';
+    const startAt = periodDates[0];
+    const endAt = periodDates[1];
     return this.http.get<PeriodExchangesRatesApiModel>(
       `${this.apiUrl}/${apiUrlEndpoints.HISTORY}?${apiUrlParameters.BASE}=${base}` +
       `&${apiUrlParameters.START_AT}=${startAt}&${apiUrlParameters.END_AT}=${endAt}`

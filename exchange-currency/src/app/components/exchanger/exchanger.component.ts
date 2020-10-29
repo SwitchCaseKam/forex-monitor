@@ -35,9 +35,10 @@ export class ExchangerComponent implements OnInit, OnDestroy {
     this.exchangeRatesSubscription.unsubscribe();
   }
 
-  public handleSelectionEvent(event: Event): void {
-    const eventValueCurrencyName = event.target['value'];
-    this.amount = Number(eventValueCurrencyName);
+  public handleSelectionEvent(event: KeyboardEvent): void {
+    if (event.key === 'Enter') {
+      this.calculateExchange();
+    }
   }
 
   public calculateExchange(): void {

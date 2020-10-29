@@ -5,39 +5,46 @@
 
     <mat-form-field id='amount-field'>
       <mat-label>Mam</mat-label>
-      <input matInput [(ngModel)]="amount">
+      <input matInput [(ngModel)]="amount" (keydown)="handleSelectionEvent($event)" required>
     </mat-form-field>
 
     <div class='selects-form'>
-      <div class='exchange-icon'>
-        <img src='https://www.countryflags.io/{{fromCurrency.substring(0,2)}}/flat/64.png'>
+      <div class='select-placeholder'>
+        <mat-select id='from-field' [(ngModel)]="fromCurrency">
+          <mat-option value="PLN"><b>PLN</b> {{currenciesFullNames?.get('PLN')}}</mat-option>
+          <ng-container *ngFor="let currencyName of availableCurrencies">
+            <mat-option value="{{currencyName}}">
+              <img src='https://www.countryflags.io/{{currencyName.substring(0,2)}}/flat/64.png'>
+              {{ currencyName }} {{currenciesFullNames?.get(currencyName)}}
+            </mat-option>
+          </ng-container>
+        </mat-select><br>
+        <div class='exchange-icon'>
+          <img src='https://www.countryflags.io/{{fromCurrency.substring(0,2)}}/flat/64.png'>
+        </div>
       </div>
-      <mat-select id='from-field' (change)="handleSelectionEvent($event)" [(ngModel)]="fromCurrency">
-        <mat-option value="PLN"><b>PLN</b> {{currenciesFullNames?.get('PLN')}}</mat-option>
-        <ng-container *ngFor="let currencyName of availableCurrencies">
-          <mat-option value="{{currencyName}}">
-            <img src='https://www.countryflags.io/{{currencyName.substring(0,2)}}/flat/64.png'>
-            {{ currencyName }} {{currenciesFullNames?.get(currencyName)}}
-          </mat-option>
-        </ng-container>
-      </mat-select>
 
       <div class='exchange-icon'>
         <img src="assets/icons/exchange-arrows.ico">
       </div>
+        <div class='select-placeholder'>
+          <mat-select id='to-field' [(ngModel)]="toCurrency">
+            <mat-option value="EUR"><b>EUR</b> {{currenciesFullNames?.get('EUR')}}</mat-option>
+            <ng-container *ngFor="let currencyName of availableCurrencies">
+              <mat-option value="{{currencyName}}">
+                <img src='https://www.countryflags.io/{{currencyName.substring(0,2)}}/flat/64.png'>
+                {{ currencyName }} {{currenciesFullNames?.get(currencyName)}}
+              </mat-option>
+            </ng-container>
+          </mat-select><br>
+          <div class='exchange-icon'>
+            <img src='https://www.countryflags.io/{{toCurrency.substring(0,2)}}/flat/64.png'>
+          </div>
+        </div>
 
-      <mat-select id='to-field' (change)="handleSelectionEvent($event)" [(ngModel)]="toCurrency">
-        <mat-option value="EUR"><b>EUR</b> {{currenciesFullNames?.get('EUR')}}</mat-option>
-        <ng-container *ngFor="let currencyName of availableCurrencies">
-          <mat-option value="{{currencyName}}">
-            <img src='https://www.countryflags.io/{{currencyName.substring(0,2)}}/flat/64.png'>
-            {{ currencyName }} {{currenciesFullNames?.get(currencyName)}}
-          </mat-option>
-        </ng-container>
-      </mat-select><br>
-      <div class='exchange-icon'>
-        <img src='https://www.countryflags.io/{{toCurrency.substring(0,2)}}/flat/64.png'>
-      </div>
+
+
+
     </div>
 
     <br>
@@ -52,13 +59,12 @@
         <b>{{ exchageRateInfo?.amountAfterExchange }} {{ exchageRateInfo?.toCurrency }}</b>
       </h2><br>
       1 {{ exchageRateInfo?.fromCurrency }} = {{ exchageRateInfo?.rate }} {{ exchageRateInfo?.toCurrency }}<br>
-      1 {{ exchageRateInfo?.toCurrency }} = {{ 1 / exchageRateInfo?.rate }} {{ exchageRateInfo?.fromCurrency }}{{ exchageRateInfo?.fromCurrency }}<br>
+      1 {{ exchageRateInfo?.toCurrency }} = {{ 1 / exchageRateInfo?.rate }} {{ exchageRateInfo?.fromCurrency }}<br>
 
+    <div class='date'>Data: <b>{{exchageRateInfo?.date}}</b></div>
     </div>
 
-    <div class='date' *ngIf="exchageRateInfo?.date">
-      Data: <b>{{exchageRateInfo?.date}}</b>
-    </div>
+
 
   </div>
 </div>
