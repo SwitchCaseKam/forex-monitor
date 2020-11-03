@@ -60,9 +60,25 @@ export class ExchangeRatesApiService {
 
   private getDefaultPeriodDates(): string[] {
     const currentHour = Number(new Date(Date.now()).toISOString().split('T')[1].split(':')[0].toString());
-    const todayDate = new Date(Date.now()).toISOString().split('T')[0];
-    const oneDayBefore = new Date(Date.now() - 86400000).toISOString().split('T')[0];
-    const twoDaysBefore = new Date(Date.now() - 2 * 86400000).toISOString().split('T')[0];
+    let todayDate = new Date(Date.now()).toISOString().split('T')[0];
+    let oneDayBefore = new Date(Date.now() - 86400000).toISOString().split('T')[0];
+    let twoDaysBefore = new Date(Date.now() - 2 * 86400000).toISOString().split('T')[0];
+    const dayInWeek = new Date(Date.now()).getDay();
+
+    if (dayInWeek === 1) {
+      todayDate = new Date(Date.now()).toISOString().split('T')[0];
+      oneDayBefore = new Date(Date.now() - 3 * 86400000).toISOString().split('T')[0];
+      twoDaysBefore = new Date(Date.now() - 4 * 86400000).toISOString().split('T')[0];
+      return currentHour >= 15 ? [oneDayBefore, todayDate] : [twoDaysBefore, oneDayBefore];
+    } else if (dayInWeek === 0) {
+      oneDayBefore = new Date(Date.now() - 3 * 86400000).toISOString().split('T')[0];
+      twoDaysBefore = new Date(Date.now() - 4 * 86400000).toISOString().split('T')[0];
+      return [twoDaysBefore, oneDayBefore];
+    } else if (dayInWeek === 6) {
+      oneDayBefore = new Date(Date.now() - 86400000).toISOString().split('T')[0];
+      twoDaysBefore = new Date(Date.now() - 2 * 86400000).toISOString().split('T')[0];
+      return [twoDaysBefore, oneDayBefore];
+    }
     return currentHour >= 15 ? [oneDayBefore, todayDate] : [twoDaysBefore, oneDayBefore];
   }
 }
