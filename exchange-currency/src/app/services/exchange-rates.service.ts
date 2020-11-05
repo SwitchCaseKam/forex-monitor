@@ -14,7 +14,8 @@ export class ExchangeRatesService {
   private baseCurrency = 'PLN';
   private currencies: Map<string, CurrencyInfo> = new Map();
   private currenciesSubject: Subject<Map<string, CurrencyInfo>> = new Subject();
-
+  private mainCurrencies: Map<string, CurrencyInfo> = new Map();
+  private mainCurrenciesSubject: Subject<Map<string, CurrencyInfo>> = new Subject();
 
   private exchangeRateInfo: Subject<ExchangeRateCurrencyInfo> = new Subject();
 
@@ -28,6 +29,10 @@ export class ExchangeRatesService {
 
   public getExchangeRateInfo(): Observable<ExchangeRateCurrencyInfo> {
     return this.exchangeRateInfo;
+  }
+
+  public getMainCurrenciesSubject(): Observable<Map<string, CurrencyInfo>> {
+    return this.mainCurrenciesSubject;
   }
 
   public setBaseCurrency(currentBase: string): void {
@@ -68,6 +73,7 @@ export class ExchangeRatesService {
       (periodExchangesRates: PeriodExchangesRatesApiModel) => {
         this.updateCurrienciesDataWithPeriodChanges(periodExchangesRates);
         this.currenciesSubject.next(this.currencies);
+        this.updateMainCurrencies();
     }
     );
   }
@@ -99,5 +105,14 @@ export class ExchangeRatesService {
     const amountAfterExchange = amount * rate;
     const date = ratesData.date;
     this.exchangeRateInfo.next({amount, fromCurrency, toCurrency, rate, amountAfterExchange, date});
+  }
+
+  private updateMainCurrencies(): void {
+    for (const currencyName of this.currencies.keys()) {
+      if (['USD', 'EUR', 'GBP', 'CHF'].includes(currencyName)) {
+        this.mainCurrencies.set(currencyName, this.currencies.get(currencyName));
+      }
+    }
+    this.mainCurrenciesSubject.next(this.mainCurrencies);
   }
 }

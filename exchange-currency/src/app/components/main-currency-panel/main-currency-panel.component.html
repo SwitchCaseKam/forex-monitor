@@ -11,19 +11,47 @@
   </select>
   <br><br><br>
   <h2>Obecne kursy walut:</h2>
-    <ng-container *ngFor="let currencyName of currenciesNames">
-      <img src='https://www.countryflags.io/{{currencyName.substring(0,2)}}/flat/64.png'>
-      &nbsp;&nbsp;<b>{{currencyName}}</b> {{currencies.get(currencyName).name}}
-      <ng-container *ngIf="currencies.get(currencyName)?.additionalInfo?.valueChange >= 0">
-        &nbsp;&nbsp;<img src="assets/icons/green-up-arrow.ico"><br>
-      </ng-container>
-      <ng-container *ngIf="currencies.get(currencyName)?.additionalInfo?.valueChange < 0">
-        &nbsp;&nbsp;<img src="assets/icons/red-down-arrow.ico"><br>
-       </ng-container>
+    Główne waluty:<br>
 
-       Bieżący kurs: <b>{{currencies.get(currencyName).value}} {{baseCurrency}}</b><br>
-       Ostatnia zmiana: {{currencies.get(currencyName)?.additionalInfo?.valueChange}} {{baseCurrency}} <br>
-       Ostatnia zmiana [%]: {{currencies.get(currencyName)?.additionalInfo?.percentageChange}}<br>
+      <ng-container *ngFor="let currencyName of mainCurrenciesNames">
+        <div class='main-currency'>
+        <img src='https://www.countryflags.io/{{currencyName.substring(0,2)}}/flat/64.png'>
+        &nbsp;&nbsp;<b>{{currencyName}}</b> {{mainCurrencies.get(currencyName).name}}
+        <ng-container *ngIf="mainCurrencies.get(currencyName)?.additionalInfo?.valueChange >= 0">
+          &nbsp;&nbsp;<img src="assets/icons/green-up-arrow.ico"><br>
+        </ng-container>
+        <ng-container *ngIf="mainCurrencies.get(currencyName)?.additionalInfo?.valueChange < 0">
+          &nbsp;&nbsp;<img src="assets/icons/red-down-arrow.ico"><br>
+         </ng-container>
+
+         Bieżący kurs: <b>{{mainCurrencies.get(currencyName).value}} {{baseCurrency}}</b><br>
+         Ostatnia zmiana: {{mainCurrencies.get(currencyName)?.additionalInfo?.valueChange}} {{baseCurrency}} <br>
+         Ostatnia zmiana [%]: {{mainCurrencies.get(currencyName)?.additionalInfo?.percentageChange}}
+        <br>
+        <button (click)="openDialog()">Więcej informacji</button>
+        <br><br>
+
+        </div>
+    </ng-container>
+
+
+    <br><br>
+
+    <ng-container *ngFor="let currencyName of currenciesNames">
+        <img src='https://www.countryflags.io/{{currencyName.substring(0,2)}}/flat/64.png'>
+        &nbsp;&nbsp;<b>{{currencyName}}</b> {{currencies.get(currencyName).name}}
+        <ng-container *ngIf="currencies.get(currencyName)?.additionalInfo?.valueChange >= 0">
+          &nbsp;&nbsp;<img src="assets/icons/green-up-arrow.ico"><br>
+        </ng-container>
+        <ng-container *ngIf="currencies.get(currencyName)?.additionalInfo?.valueChange < 0">
+          &nbsp;&nbsp;<img src="assets/icons/red-down-arrow.ico"><br>
+         </ng-container>
+
+         Bieżący kurs: <b>{{currencies.get(currencyName).value}} {{baseCurrency}}</b><br>
+         Ostatnia zmiana: {{currencies.get(currencyName)?.additionalInfo?.valueChange}} {{baseCurrency}} <br>
+         Ostatnia zmiana [%]: {{currencies.get(currencyName)?.additionalInfo?.percentageChange}}<br>
+
+
 
 
        <br>

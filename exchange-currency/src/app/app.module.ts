@@ -13,6 +13,8 @@ import { MainCurrencyPanelComponent } from './components/main-currency-panel/mai
 import { HeaderComponent } from './components/header/header.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { CurrencyDetailsComponent } from './components/currency-details/currency-details.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,7 @@ import { MatButtonModule } from '@angular/material/button';
     ExchangerComponent,
     MainCurrencyPanelComponent,
     HeaderComponent,
+    CurrencyDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,9 +33,11 @@ import { MatButtonModule } from '@angular/material/button';
     MatSelectModule,
     FormsModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatDialogModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [CurrencyDetailsComponent]
 })
 export class AppModule { }
