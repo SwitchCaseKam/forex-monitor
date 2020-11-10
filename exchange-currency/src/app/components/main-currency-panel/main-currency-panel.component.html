@@ -28,7 +28,7 @@
          Ostatnia zmiana: {{mainCurrencies.get(currencyName)?.additionalInfo?.valueChange}} {{baseCurrency}} <br>
          Ostatnia zmiana [%]: {{mainCurrencies.get(currencyName)?.additionalInfo?.percentageChange}}
         <br>
-        <button (click)="openDialog()">Więcej informacji</button>
+        <button id={{currencyName}} (click)="openDialog($event)">Więcej informacji</button>
         <br><br>
 
         </div>

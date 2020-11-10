@@ -15,6 +15,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CurrencyDetailsComponent } from './components/currency-details/currency-details.component';
+import { ChartsModule } from 'ng2-charts';
+import { HistoryChartComponent } from './components/history-chart/history-chart.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,7 @@ import { CurrencyDetailsComponent } from './components/currency-details/currency
     MainCurrencyPanelComponent,
     HeaderComponent,
     CurrencyDetailsComponent,
+    HistoryChartComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,7 +37,8 @@ import { CurrencyDetailsComponent } from './components/currency-details/currency
     FormsModule,
     MatInputModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    ChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent],
