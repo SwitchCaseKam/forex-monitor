@@ -20,8 +20,13 @@ export class HistoryChartComponent implements OnInit, OnDestroy {
     responsive: true,
   };
 
+  lineChartColors: Color[] = [
+    {
+      borderColor: 'black',
+      backgroundColor: 'rgba(255,255,255,0.28)',
+    },
+  ];
 
-  lineChartPlugins = [];
   lineChartType = 'line';
   constructor() { }
 

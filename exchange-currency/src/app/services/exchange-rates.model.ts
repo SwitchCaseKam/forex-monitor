@@ -1,6 +1,6 @@
 export interface CurrencyInfo {
   value: number;
-  name: string;
+  name?: string;
   additionalInfo?: CurrencyChanges;
 }
 

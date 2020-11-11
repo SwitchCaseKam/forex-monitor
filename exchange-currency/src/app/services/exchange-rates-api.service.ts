@@ -9,7 +9,7 @@ enum apiUrlEndpoints {
 }
 
 enum apiUrlParameters {
-  SYMBOL = 'symbols',
+  SYMBOLS = 'symbols',
   BASE = 'base',
   START_AT = 'start_at',
   END_AT = 'end_at',
@@ -54,6 +54,17 @@ export class ExchangeRatesApiService {
     const endAt = periodDates[1];
     return this.http.get<PeriodExchangesRatesApiModel>(
       `${this.apiUrl}/${apiUrlEndpoints.HISTORY}?${apiUrlParameters.BASE}=${base}` +
+      `&${apiUrlParameters.START_AT}=${startAt}&${apiUrlParameters.END_AT}=${endAt}`
+    );
+  }
+
+  public getLastRatesWithBaseForSymbol(base: string, symbols: string | string[]): Observable<PeriodExchangesRatesApiModel> {
+    const latestDates = this.getDefaultPeriodDates();
+    const startAt = latestDates[0];
+    const endAt = latestDates[1];
+    return this.http.get<PeriodExchangesRatesApiModel>(
+      `${this.apiUrl}/${apiUrlEndpoints.HISTORY}?` +
+      `${apiUrlParameters.BASE}=${base}&${apiUrlParameters.SYMBOLS}=${symbols}` +
       `&${apiUrlParameters.START_AT}=${startAt}&${apiUrlParameters.END_AT}=${endAt}`
     );
   }

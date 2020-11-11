@@ -16,7 +16,7 @@
       <ng-container *ngFor="let currencyName of mainCurrenciesNames">
         <div class='main-currency'>
         <img src='https://www.countryflags.io/{{currencyName.substring(0,2)}}/flat/64.png'>
-        &nbsp;&nbsp;<b>{{currencyName}}</b> {{mainCurrencies.get(currencyName).name}}
+        &nbsp;&nbsp;<b>{{currencyName}}/{{baseCurrency}}</b> {{mainCurrencies.get(currencyName).name}}
         <ng-container *ngIf="mainCurrencies.get(currencyName)?.additionalInfo?.valueChange >= 0">
           &nbsp;&nbsp;<img src="assets/icons/green-up-arrow.ico"><br>
         </ng-container>
@@ -39,7 +39,7 @@
 
     <ng-container *ngFor="let currencyName of currenciesNames">
         <img src='https://www.countryflags.io/{{currencyName.substring(0,2)}}/flat/64.png'>
-        &nbsp;&nbsp;<b>{{currencyName}}</b> {{currencies.get(currencyName).name}}
+        &nbsp;&nbsp;<b>{{currencyName}}/{{baseCurrency}}</b> {{currencies.get(currencyName).name}}
         <ng-container *ngIf="currencies.get(currencyName)?.additionalInfo?.valueChange >= 0">
           &nbsp;&nbsp;<img src="assets/icons/green-up-arrow.ico"><br>
         </ng-container>

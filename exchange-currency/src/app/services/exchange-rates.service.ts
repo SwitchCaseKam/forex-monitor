@@ -3,7 +3,7 @@ import { CurrencyChanges, CurrencyInfo, ExchangeRateCurrencyInfo, fullCurrencies
 import { ExchangeRatesApiService } from './exchange-rates-api.service';
 import { Injectable } from '@angular/core';
 import { PeriodExchangesRatesApiModel, ExchangesRatesApiModel } from './exchange-rates-api.model';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, forkJoin, Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -17,10 +17,15 @@ export class ExchangeRatesService {
   private mainCurrencies: Map<string, CurrencyInfo> = new Map();
   private mainCurrenciesSubject: Subject<Map<string, CurrencyInfo>> = new Subject();
 
+
+  private majorsPairs: Map<string, CurrencyInfo> = new Map();
+  private majorsPairsSubject: Subject<Map<string, CurrencyInfo>> = new Subject();
+
   private exchangeRateInfo: Subject<ExchangeRateCurrencyInfo> = new Subject();
 
   constructor(private exchangeRatesApiService: ExchangeRatesApiService) {
     this.getLastestExchangeRatesFullInfo();
+    this.getLastestRatesForMajors();
   }
 
   public getCurrenciesSubject(): Observable<Map<string, CurrencyInfo>> {
@@ -78,6 +83,18 @@ export class ExchangeRatesService {
     );
   }
 
+  public getLastestRatesForMajors(): void {
+    forkJoin(
+      this.exchangeRatesApiService.getLastRatesWithBaseForSymbol('EUR', 'USD'),
+      this.exchangeRatesApiService.getLastRatesWithBaseForSymbol('USD', 'JPY'),
+      this.exchangeRatesApiService.getLastRatesWithBaseForSymbol('GBP', 'USD'),
+      this.exchangeRatesApiService.getLastRatesWithBaseForSymbol('USD', 'CHF')
+    ).subscribe((majorPairs: PeriodExchangesRatesApiModel[]) => {
+      console.log(majorPairs);
+
+    });
+  }
+
   private updateCurrienciesDataWithPeriodChanges(periodExchangesRates: PeriodExchangesRatesApiModel) {
     const periodDates = Object.keys(periodExchangesRates.rates);
     const yesterdayData = periodExchangesRates.rates[periodDates[0]];
@@ -115,4 +132,5 @@ export class ExchangeRatesService {
     }
     this.mainCurrenciesSubject.next(this.mainCurrencies);
   }
+
 }
