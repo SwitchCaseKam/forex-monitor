@@ -17,6 +17,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { CurrencyDetailsComponent } from './components/currency-details/currency-details.component';
 import { ChartsModule } from 'ng2-charts';
 import { HistoryChartComponent } from './components/history-chart/history-chart.component';
+import { MajorsPanelComponent } from './majors-panel/majors-panel.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { HistoryChartComponent } from './components/history-chart/history-chart.
     HeaderComponent,
     CurrencyDetailsComponent,
     HistoryChartComponent,
+    MajorsPanelComponent,
   ],
   imports: [
     BrowserModule,

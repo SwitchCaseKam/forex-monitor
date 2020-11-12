@@ -17,7 +17,6 @@ export class ExchangeRatesService {
   private mainCurrencies: Map<string, CurrencyInfo> = new Map();
   private mainCurrenciesSubject: Subject<Map<string, CurrencyInfo>> = new Subject();
 
-
   private majorsPairs: Map<string, CurrencyInfo> = new Map();
   private majorsPairsSubject: Subject<Map<string, CurrencyInfo>> = new Subject();
 
@@ -38,6 +37,10 @@ export class ExchangeRatesService {
 
   public getMainCurrenciesSubject(): Observable<Map<string, CurrencyInfo>> {
     return this.mainCurrenciesSubject;
+  }
+
+  public getMajorCurrenciesSubject(): Observable<Map<string, CurrencyInfo>> {
+    return this.majorsPairsSubject;
   }
 
   public setBaseCurrency(currentBase: string): void {
@@ -89,13 +92,35 @@ export class ExchangeRatesService {
       this.exchangeRatesApiService.getLastRatesWithBaseForSymbol('USD', 'JPY'),
       this.exchangeRatesApiService.getLastRatesWithBaseForSymbol('GBP', 'USD'),
       this.exchangeRatesApiService.getLastRatesWithBaseForSymbol('USD', 'CHF')
-    ).subscribe((majorPairs: PeriodExchangesRatesApiModel[]) => {
+    ).pipe(take(1)).subscribe((majorPairs: PeriodExchangesRatesApiModel[]) => {
       console.log(majorPairs);
+      this.updateMajorPairsData(majorPairs);
 
     });
   }
 
-  private updateCurrienciesDataWithPeriodChanges(periodExchangesRates: PeriodExchangesRatesApiModel) {
+  private updateMajorPairsData(majorPairsData: PeriodExchangesRatesApiModel[]): void {
+    majorPairsData.forEach((pairData: PeriodExchangesRatesApiModel) => {
+      const periodDates = Object.keys(pairData.rates);
+      const yesterdayData = pairData.rates[periodDates[0]];
+      const todayData = pairData.rates[periodDates[1]];
+
+      const quotedCurrency = Object.keys(todayData)[0];
+      const latestValue = todayData[quotedCurrency];
+      const yesterdayValue = yesterdayData[quotedCurrency];
+
+      this.majorsPairs.set(`${pairData.base}/${quotedCurrency}`, {
+        value: latestValue,
+        additionalInfo: {
+          percentageChange: (latestValue - yesterdayValue) / yesterdayValue,
+          valueChange: latestValue - yesterdayValue
+        }
+      });
+    });
+    this.majorsPairsSubject.next(this.majorsPairs);
+  }
+
+  private updateCurrienciesDataWithPeriodChanges(periodExchangesRates: PeriodExchangesRatesApiModel): void {
     const periodDates = Object.keys(periodExchangesRates.rates);
     const yesterdayData = periodExchangesRates.rates[periodDates[0]];
     const todayData = periodExchangesRates.rates[periodDates[1]];

@@ -1,0 +1,48 @@
+<div class='container'>
+  <!-- <ng-container *ngFor="let majorPair of majorPairs">
+    <h2><b>{{ majorPair }}</b></h2>
+    <img src='https://www.countryflags.io/{{majorPair.substring(0,2)}}/flat/64.png'>
+    <img src='https://www.countryflags.io/{{majorPair.substring(4,6)}}/flat/64.png'>
+
+    <b>&nbsp;&nbsp;{{ getValuesForPair(majorPair).value }}</b>
+    <ng-container *ngIf="getValuesForPair(majorPair)?.additionalInfo?.valueChange > 0">
+      &nbsp;&nbsp;<img src="assets/icons/green-up-arrow.ico">
+    </ng-container>
+    <ng-container *ngIf="getValuesForPair(majorPair).additionalInfo?.valueChange <= 0">
+      &nbsp;&nbsp;<img src="assets/icons/red-down-arrow.ico">
+    </ng-container><br>
+    {{ getValuesForPair(majorPair).additionalInfo.valueChange }}<br>
+    {{ getValuesForPair(majorPair).additionalInfo.percentageChange }} [%]<br>
+    <br>
+
+  </ng-container> -->
+
+  <table class='table'>
+    <thead>
+      <tr>
+        <th scope="col">Nazwa</th>
+        <th scope="col">Obecna wartość</th>
+        <th scope="col">Ostatnia zmiana</th>
+        <th scope="col">Ostatnia zmiana [%]</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let majorPair of majorPairs; let i = index">
+        <td><b>{{ majorPair }}</b>
+          <img src='https://www.countryflags.io/{{majorPair.substring(0,2)}}/flat/64.png'>
+          <img src='https://www.countryflags.io/{{majorPair.substring(4,6)}}/flat/64.png'>
+        </td>
+        <td><b>{{ getValuesForPair(majorPair).value }}</b></td>
+        <td>{{ getValuesForPair(majorPair).additionalInfo.valueChange }}</td>
+        <td>{{ getValuesForPair(majorPair).additionalInfo.percentageChange }}</td>
+        <td><ng-container *ngIf="getValuesForPair(majorPair)?.additionalInfo?.valueChange > 0">
+          &nbsp;&nbsp;<img src="assets/icons/green-up-arrow.ico">
+        </ng-container>
+        <ng-container *ngIf="getValuesForPair(majorPair).additionalInfo?.valueChange <= 0">
+          &nbsp;&nbsp;<img src="assets/icons/red-down-arrow.ico">
+        </ng-container></td>
+      </tr>
+    </tbody>
+</table>
+</div>
