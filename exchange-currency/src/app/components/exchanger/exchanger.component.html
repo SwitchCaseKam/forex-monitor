@@ -5,7 +5,7 @@
 
     <mat-form-field id='amount-field'>
       <mat-label>Mam</mat-label>
-      <input matInput [(ngModel)]="amount" (keydown)="handleSelectionEvent($event)" required>
+      <input type="number" matInput [(ngModel)]="amount" (keydown)="handleSelectionEvent($event)" required>
     </mat-form-field>
 
     <div class='selects-form'>
@@ -18,14 +18,14 @@
               {{ currencyName }} {{currenciesFullNames?.get(currencyName)}}
             </mat-option>
           </ng-container>
-        </mat-select><br>
+        </mat-select>
         <div class='exchange-icon'>
           <img src='https://www.countryflags.io/{{fromCurrency.substring(0,2)}}/flat/64.png'>
         </div>
       </div>
 
-      <div class='exchange-icon'>
-        <img src="assets/icons/exchange-arrows.ico">
+      <div id='exchange-swap-icon'>
+        <img src="assets/icons/exchange-arrows.ico" (click)="swapFromAndToCurrencies()">
       </div>
         <div class='select-placeholder'>
           <mat-select id='to-field' [(ngModel)]="toCurrency">
@@ -36,7 +36,7 @@
                 {{ currencyName }} {{currenciesFullNames?.get(currencyName)}}
               </mat-option>
             </ng-container>
-          </mat-select><br>
+          </mat-select>
           <div class='exchange-icon'>
             <img src='https://www.countryflags.io/{{toCurrency.substring(0,2)}}/flat/64.png'>
           </div>
@@ -60,8 +60,7 @@
       </h2><br>
       1 {{ exchageRateInfo?.fromCurrency }} = {{ exchageRateInfo?.rate }} {{ exchageRateInfo?.toCurrency }}<br>
       1 {{ exchageRateInfo?.toCurrency }} = {{ 1 / exchageRateInfo?.rate }} {{ exchageRateInfo?.fromCurrency }}<br>
-
-    <div class='date'>Data: <b>{{exchageRateInfo?.date}}</b></div>
+      <div class='date'>Data: <b>{{exchageRateInfo?.date}}</b></div>
     </div>
 
 

@@ -146,7 +146,7 @@ export class ExchangeRatesService {
     const rate = Number(ratesData.rates[toCurrency]);
     const amountAfterExchange = amount * rate;
     const date = ratesData.date;
-    this.exchangeRateInfo.next({amount, fromCurrency, toCurrency, rate, amountAfterExchange, date});
+    if (amount) { this.exchangeRateInfo.next({amount, fromCurrency, toCurrency, rate, amountAfterExchange, date}); }
   }
 
   private updateMainCurrencies(): void {

@@ -50,5 +50,12 @@ export class ExchangerComponent implements OnInit, OnDestroy {
     );
   }
 
+  public swapFromAndToCurrencies(): void {
+    const currentFrom = this.fromCurrency;
+    this.fromCurrency = this.toCurrency;
+    this.toCurrency = currentFrom;
+    this.calculateExchange();
+  }
+
 
 }

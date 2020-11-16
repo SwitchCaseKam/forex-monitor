@@ -36,6 +36,15 @@
   padding: 1rem;
 }
 
+#exchange-swap-icon {
+  display: inline-block;
+  padding: 1rem;
+}
+
+#exchange-swap-icon:hover {
+  cursor: pointer;
+}
+
 .select-placeholder {
   display: inline-block;
   padding: 1rem;
