@@ -23,6 +23,11 @@ export interface ExchangeRateCurrencyInfo {
   date: string;
 }
 
+export interface CurrencyPair {
+  base: string;
+  quote: string;
+}
+
 export const fullCurrenciesNamesMap = new Map([
   ['EUR', 'euro'],
   ['CAD', 'dolar kanadyjski'],

@@ -1,3 +1,4 @@
+import { CurrencyDetailsService } from './../../services/currency-details.service';
 import { CurrencyInfo } from './../../services/exchange-rates.model';
 import { ExchangeRatesService } from 'src/app/services/exchange-rates.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
@@ -26,6 +27,7 @@ export class MainCurrencyPanelComponent implements OnInit, OnDestroy {
 
   constructor(
     private exchangeRatesService: ExchangeRatesService,
+    private currencyDetailsService: CurrencyDetailsService,
     public dialog: MatDialog
   ) { }
 
@@ -62,9 +64,10 @@ export class MainCurrencyPanelComponent implements OnInit, OnDestroy {
   }
 
   public openDialog(currencyButtonEvent: Event) {
-    console.log('currencyName: ', currencyButtonEvent);
+    const baseCurrency = currencyButtonEvent.target['id'];
     const dialogRef = this.dialog.open(CurrencyDetailsComponent);
-
+    this.currencyDetailsService.setCurrentCurrenciesPair(baseCurrency, this.exchangeRatesService.getBaseCurrency());
+    this.currencyDetailsService.getHistoricalExchangeRates();
     dialogRef.afterClosed().subscribe();
   }
 

@@ -88,10 +88,10 @@ export class ExchangeRatesService {
 
   public getLastestRatesForMajors(): void {
     forkJoin(
-      this.exchangeRatesApiService.getLastRatesWithBaseForSymbol('EUR', 'USD'),
-      this.exchangeRatesApiService.getLastRatesWithBaseForSymbol('USD', 'JPY'),
-      this.exchangeRatesApiService.getLastRatesWithBaseForSymbol('GBP', 'USD'),
-      this.exchangeRatesApiService.getLastRatesWithBaseForSymbol('USD', 'CHF')
+      this.exchangeRatesApiService.getHistoricalRatesWithBaseForSymbol('EUR', 'USD'),
+      this.exchangeRatesApiService.getHistoricalRatesWithBaseForSymbol('USD', 'JPY'),
+      this.exchangeRatesApiService.getHistoricalRatesWithBaseForSymbol('GBP', 'USD'),
+      this.exchangeRatesApiService.getHistoricalRatesWithBaseForSymbol('USD', 'CHF')
     ).pipe(take(1)).subscribe((majorPairs: PeriodExchangesRatesApiModel[]) => {
       console.log(majorPairs);
       this.updateMajorPairsData(majorPairs);

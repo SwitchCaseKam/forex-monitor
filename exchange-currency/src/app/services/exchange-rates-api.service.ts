@@ -58,10 +58,9 @@ export class ExchangeRatesApiService {
     );
   }
 
-  public getLastRatesWithBaseForSymbol(base: string, symbols: string | string[]): Observable<PeriodExchangesRatesApiModel> {
-    const latestDates = this.getDefaultPeriodDates();
-    const startAt = latestDates[0];
-    const endAt = latestDates[1];
+  public getHistoricalRatesWithBaseForSymbol(base: string, symbols: string | string[],
+                                             startAt = this.getDefaultPeriodDates()[0],
+                                             endAt = this.getDefaultPeriodDates()[1]): Observable<PeriodExchangesRatesApiModel> {
     return this.http.get<PeriodExchangesRatesApiModel>(
       `${this.apiUrl}/${apiUrlEndpoints.HISTORY}?` +
       `${apiUrlParameters.BASE}=${base}&${apiUrlParameters.SYMBOLS}=${symbols}` +

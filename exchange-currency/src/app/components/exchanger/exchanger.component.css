@@ -22,18 +22,24 @@
 #to-field {
   background-color: white;
   border: 2px solid;
-  width: 100%;
+  /* width: 100%; */
+  height: 3rem;
 
 }
 #from-field {
   background-color: white;
   border: 2px solid;
-  width: 100%;
+  /* width: 100%; */
+  height: 3rem;
 }
 
 .exchange-icon {
   display: inline-block;
   padding: 1rem;
+}
+
+.exchange-icon:hover {
+  cursor: pointer;
 }
 
 #exchange-swap-icon {
@@ -49,7 +55,6 @@
   display: inline-block;
   padding: 1rem;
   min-width: 10rem;
-  background-color: rgb(216, 213, 213);
 }
 
 .selects-form {

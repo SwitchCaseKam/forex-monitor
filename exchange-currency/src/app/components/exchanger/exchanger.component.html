@@ -9,7 +9,9 @@
     </mat-form-field>
 
     <div class='selects-form'>
-      <div class='select-placeholder'>
+      <div class='exchange-icon'>
+        <img src='https://www.countryflags.io/{{fromCurrency.substring(0,2)}}/flat/64.png'>
+      </div>
         <mat-select id='from-field' [(ngModel)]="fromCurrency">
           <mat-option value="PLN"><b>PLN</b> {{currenciesFullNames?.get('PLN')}}</mat-option>
           <ng-container *ngFor="let currencyName of availableCurrencies">
@@ -19,15 +21,13 @@
             </mat-option>
           </ng-container>
         </mat-select>
-        <div class='exchange-icon'>
-          <img src='https://www.countryflags.io/{{fromCurrency.substring(0,2)}}/flat/64.png'>
-        </div>
-      </div>
+
+
 
       <div id='exchange-swap-icon'>
         <img src="assets/icons/exchange-arrows.ico" (click)="swapFromAndToCurrencies()">
       </div>
-        <div class='select-placeholder'>
+
           <mat-select id='to-field' [(ngModel)]="toCurrency">
             <mat-option value="EUR"><b>EUR</b> {{currenciesFullNames?.get('EUR')}}</mat-option>
             <ng-container *ngFor="let currencyName of availableCurrencies">
@@ -40,7 +40,7 @@
           <div class='exchange-icon'>
             <img src='https://www.countryflags.io/{{toCurrency.substring(0,2)}}/flat/64.png'>
           </div>
-        </div>
+
 
 
 
