@@ -65,9 +65,10 @@ export class MainCurrencyPanelComponent implements OnInit, OnDestroy {
 
   public openDialog(currencyButtonEvent: Event) {
     const baseCurrency = currencyButtonEvent.target['id'];
-    const dialogRef = this.dialog.open(CurrencyDetailsComponent);
+
     this.currencyDetailsService.setCurrentCurrenciesPair(baseCurrency, this.exchangeRatesService.getBaseCurrency());
     this.currencyDetailsService.getHistoricalExchangeRates();
+    const dialogRef = this.dialog.open(CurrencyDetailsComponent);
     dialogRef.afterClosed().subscribe();
   }
 

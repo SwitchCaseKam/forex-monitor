@@ -2,7 +2,7 @@ import { ExchangeRatesApiService } from './exchange-rates-api.service';
 import { Injectable } from '@angular/core';
 import { CurrencyPair } from './exchange-rates.model';
 import { take } from 'rxjs/operators';
-import { forkJoin } from 'rxjs';
+import { forkJoin, Observable, Subject } from 'rxjs';
 import { PeriodExchangesRatesApiModel } from './exchange-rates-api.model';
 
 export interface HistoricalData {
@@ -10,11 +10,11 @@ export interface HistoricalData {
   values: string[];
 }
 
-export const enum HistoricalDates {
-  A_WEEK_AGO = 'aWeekAgo',
-  A_MONTH_AGO = 'aMonthkAgo',
-  THREE_MONTHS_AGO = 'threeMonthsAgo',
-  A_YEAR_AGO = 'aYearAgo'
+export enum HistoricalDates {
+  A_WEEK_AGO = 0,
+  A_MONTH_AGO = 1,
+  THREE_MONTHS_AGO = 2,
+  A_YEAR_AGO = 3
 }
 
 @Injectable({
@@ -24,7 +24,8 @@ export const enum HistoricalDates {
 export class CurrencyDetailsService {
 
   private currentCurrencyPair: CurrencyPair;
-  private currencyPairHistoricalData: Map<string, HistoricalData> = new Map();
+  private currencyPairHistoricalData: Map<HistoricalDates, HistoricalData> = new Map();
+  private currencyPairHistoricalDataSubject: Subject<Map<HistoricalDates, HistoricalData>> = new Subject();
 
   constructor(private exchangeRatesApiService: ExchangeRatesApiService) { }
 
@@ -38,6 +39,10 @@ export class CurrencyDetailsService {
 
   public getCurrencyPairHistoricalData(time: HistoricalDates): HistoricalData {
     return this.currencyPairHistoricalData.get(time);
+  }
+
+  public getCurrencyPairHistoricalDataSubject(): Observable<Map<number, HistoricalData>> {
+    return this.currencyPairHistoricalDataSubject;
   }
 
   public getHistoricalExchangeRates(): void {
@@ -62,38 +67,16 @@ export class CurrencyDetailsService {
   }
 
   private updateCurrencyPairHistoricalData(historicalData: PeriodExchangesRatesApiModel[]): void {
-    const dateAWeekAgo = historicalData[0];
-    const dataAMonthAgo = historicalData[1];
-    const data3MonthsAgo = historicalData[2];
-    const dataAYearAgo = historicalData[3];
+    historicalData.forEach((historicalInfo, index) => {
+      const dates = Array.from(new Map([...Object.entries(historicalInfo.rates)].sort()).keys());
+      const valuesObjects = Array.from(new Map([...Object.entries(historicalInfo.rates)].sort()).values());
+      const values = [];
+      valuesObjects.forEach((value) => {
+        values.push(value[this.currentCurrencyPair.quote]);
+      });
+      this.currencyPairHistoricalData.set(index, {dates, values})
+    });
+    this.currencyPairHistoricalDataSubject.next(this.currencyPairHistoricalData);
 
-    // historicalData.forEach((historicalInfo, index) => {
-    //   const dates = Array.from(new Map([...Object.entries(historicalInfo.rates)].sort()).keys());
-    //   const values = Array.from(new Map([...Object.entries(historicalInfo.rates)].sort()).values());
-    //   this.currencyPairHistoricalData.set(HistoricalDates[index], {dates, values})
-    // });
-
-    let dates = Array.from(new Map([...Object.entries(dateAWeekAgo.rates)].sort()).keys());
-    let values = Array.from(new Map([...Object.entries(dateAWeekAgo.rates)].sort()).values());
-    this.currencyPairHistoricalData.set(HistoricalDates.A_WEEK_AGO, {dates, values})
-
-    dates = Array.from(new Map([...Object.entries(dataAMonthAgo.rates)].sort()).keys());
-    values = Array.from(new Map([...Object.entries(dataAMonthAgo.rates)].sort()).values());
-    this.currencyPairHistoricalData.set(HistoricalDates.A_MONTH_AGO, {dates, values})
-
-    dates = Array.from(new Map([...Object.entries(data3MonthsAgo.rates)].sort()).keys());
-    values = Array.from(new Map([...Object.entries(data3MonthsAgo.rates)].sort()).values());
-    this.currencyPairHistoricalData.set(HistoricalDates.THREE_MONTHS_AGO, {dates, values})
-
-    dates = Array.from(new Map([...Object.entries(dataAYearAgo.rates)].sort()).keys());
-    values = Array.from(new Map([...Object.entries(dataAYearAgo.rates)].sort()).values());
-    this.currencyPairHistoricalData.set(HistoricalDates.A_YEAR_AGO, {dates, values})
-
-    console.log( this.currencyPairHistoricalData);
-
-    // this.currencyPairHistoricalData.set(HistoricalDates.A_WEEK_AGO, {})
-    // this.currencyPairHistoricalData.set(HistoricalDates.A_MONTH_AGO, )
-    // this.currencyPairHistoricalData.set(HistoricalDates.THREE_MONTHS_AGO, )
-    // this.currencyPairHistoricalData.set(HistoricalDates.A_YEAR_AGO, )
   }
 }

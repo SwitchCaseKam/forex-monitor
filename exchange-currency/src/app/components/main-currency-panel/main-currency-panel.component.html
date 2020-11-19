@@ -1,6 +1,6 @@
 <div class='container'>
   <b>Kursy walut wyznaczone dla: {{baseCurrency}}</b><br><br>
-  Zmień walutę podstawową:
+  Zmień walutę odniesienia:
   <select id="base-currency" (change)="handleSelectionEvent($event)"><br><br>
     <option value="PLN">PLN polski złoty</option>
     <ng-container *ngFor="let currencyName of availableCurrencies">
@@ -36,6 +36,7 @@
 
 
     <br><br>
+    <p>* * * * * * </p>
 
     <ng-container *ngFor="let currencyName of currenciesNames">
         <img src='https://www.countryflags.io/{{currencyName.substring(0,2)}}/flat/64.png'>
@@ -50,10 +51,7 @@
          Bieżący kurs: <b>{{currencies.get(currencyName).value}} {{baseCurrency}}</b><br>
          Ostatnia zmiana: {{currencies.get(currencyName)?.additionalInfo?.valueChange}} {{baseCurrency}} <br>
          Ostatnia zmiana [%]: {{currencies.get(currencyName)?.additionalInfo?.percentageChange}}<br>
-
-
-
-
-       <br>
+       <button id={{currencyName}} (click)="openDialog($event)">Więcej informacji</button><br>
+       <br><br>
   </ng-container>
 </div>
