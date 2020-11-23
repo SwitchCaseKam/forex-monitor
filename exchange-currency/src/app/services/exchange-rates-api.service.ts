@@ -79,7 +79,7 @@ export class ExchangeRatesApiService {
       todayDate = new Date(Date.now()).toISOString().split('T')[0];
       oneDayBefore = new Date(Date.now() - 3 * 86400000).toISOString().split('T')[0];
       twoDaysBefore = new Date(Date.now() - 4 * 86400000).toISOString().split('T')[0];
-      return currentHour >= 15 ? [oneDayBefore, todayDate] : [twoDaysBefore, oneDayBefore];
+      return currentHour >= 17 ? [oneDayBefore, todayDate] : [twoDaysBefore, oneDayBefore];
     } else if (dayInWeek === 0) {
       oneDayBefore = new Date(Date.now() - 3 * 86400000).toISOString().split('T')[0];
       twoDaysBefore = new Date(Date.now() - 4 * 86400000).toISOString().split('T')[0];
@@ -89,6 +89,6 @@ export class ExchangeRatesApiService {
       twoDaysBefore = new Date(Date.now() - 2 * 86400000).toISOString().split('T')[0];
       return [twoDaysBefore, oneDayBefore];
     }
-    return currentHour >= 15 ? [oneDayBefore, todayDate] : [twoDaysBefore, oneDayBefore];
+    return currentHour >= 17 ? [oneDayBefore, todayDate] : [twoDaysBefore, oneDayBefore];
   }
 }
