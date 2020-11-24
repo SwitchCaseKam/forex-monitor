@@ -15,9 +15,9 @@
 }
 
 .exchanger-placeholder {
-  background-color: #ffffff;
+  background-color: #dff6ff;
   padding: 2rem;
-  display: flex;
+  /* display: flex; */
 }
 
 #amount-field {
@@ -32,7 +32,7 @@
   border: 1px solid orange;
   display: inline-block;
   border-radius: 25px;
-  background-color: rgb(241, 226, 205);
+  background-color: #b4e7ff;
 }
 /*
 #to-field {
@@ -79,7 +79,7 @@
   display: inline-block;
   border: 1px solid black;
   border-radius: 25px;
-  background-color: rgb(170, 142, 102);
+  background-color: #8ad9ff;
 }
 
 .date {
@@ -104,7 +104,7 @@
 
 .container {
   border-radius: 25px;
-  background: #ffffff;
+  background: #dff6ff;
   padding: 20px;
   border: 1px solid black;
 }

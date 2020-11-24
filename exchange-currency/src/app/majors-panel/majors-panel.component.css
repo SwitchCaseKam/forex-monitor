@@ -13,3 +13,7 @@ th {
   background-color: rgb(66, 135, 226);
   color: white;
 }
+
+.content {
+  width: 200px;
+}

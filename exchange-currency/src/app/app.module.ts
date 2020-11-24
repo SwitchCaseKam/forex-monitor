@@ -18,6 +18,8 @@ import { CurrencyDetailsComponent } from './components/currency-details/currency
 import { ChartsModule } from 'ng2-charts';
 import { HistoryChartComponent } from './components/history-chart/history-chart.component';
 import { MajorsPanelComponent } from './majors-panel/majors-panel.component';
+import { MatCardModule } from '@angular/material';
+import { ForexPairInfoCardComponent } from './components/forex-pair-info-card/forex-pair-info-card.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,7 @@ import { MajorsPanelComponent } from './majors-panel/majors-panel.component';
     CurrencyDetailsComponent,
     HistoryChartComponent,
     MajorsPanelComponent,
+    ForexPairInfoCardComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,7 +43,8 @@ import { MajorsPanelComponent } from './majors-panel/majors-panel.component';
     MatInputModule,
     MatButtonModule,
     MatDialogModule,
-    ChartsModule
+    ChartsModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent],
