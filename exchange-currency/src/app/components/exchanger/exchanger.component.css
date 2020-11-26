@@ -1,5 +1,5 @@
 #exchanger-calculation-button {
-  background-color: rgb(87, 112, 165);
+  background-color: rgb(141, 168, 236);
   border: 1px solid black;
   margin: auto;
   color: white;
@@ -15,8 +15,10 @@
 }
 
 .exchanger-placeholder {
-  background-color: #dff6ff;
+  background-color: #f4fbfd;
   padding: 2rem;
+  border-radius: 25px;
+  /* border: 1px solid black */
   /* display: flex; */
 }
 
@@ -28,11 +30,13 @@
 
 .amount {
   padding: 1rem;
-  height:100%;
-  border: 1px solid orange;
-  display: inline-block;
+  float: left;
   border-radius: 25px;
-  background-color: #b4e7ff;
+
+}
+
+.col {
+  padding: 0.2rem;
 }
 /*
 #to-field {
@@ -79,7 +83,7 @@
   display: inline-block;
   border: 1px solid black;
   border-radius: 25px;
-  background-color: #8ad9ff;
+  background-color: #cce8f5;
 }
 
 .date {
@@ -91,8 +95,8 @@
   text-align: center;
   padding: 0.2rem;
   border: 2px solid orange;
-  background-color: rgb(197, 218, 226);
   border-radius: 25px;
+  background-color: #ebf7ad;
 }
 
 .mat-form-field {
@@ -111,4 +115,8 @@
 
 .flag-icon {
   text-align: center;
+}
+
+.inline-block {
+  display: inline-block;
 }

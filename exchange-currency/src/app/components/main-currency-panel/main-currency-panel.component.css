@@ -1,4 +1,14 @@
 .container {
-  background-color: #96b6ce;
+  background-color: #ffffff;
   padding: 2rem;
+  border-radius: 25px;
+  border: 1px solid black;
+}
+
+.h6 {
+  text-align: center;
+}
+
+.money-icon {
+  float: center;
 }

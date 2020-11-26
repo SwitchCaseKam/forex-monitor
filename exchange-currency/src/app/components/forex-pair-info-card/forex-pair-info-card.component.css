@@ -1,4 +1,8 @@
 mat-card {
-  width: 16px;
+  max-width: 20rem;
 }
 
+.forex-pair-info {
+  text-align: center;
+  background-color: rgb(222, 240, 245);
+}

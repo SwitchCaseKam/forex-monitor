@@ -1,11 +1,7 @@
-import { CurrencyDetailsService } from './../../services/currency-details.service';
 import { CurrencyInfo } from './../../services/exchange-rates.model';
 import { ExchangeRatesService } from 'src/app/services/exchange-rates.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { MatDialog } from '@angular/material/dialog';
-import { CurrencyDetailsComponent } from '../currency-details/currency-details.component';
-// import { Currency } from 'src/app/services/exchange-rates.model';
 
 @Component({
   selector: 'app-main-currency-panel',
@@ -27,8 +23,6 @@ export class MainCurrencyPanelComponent implements OnInit, OnDestroy {
 
   constructor(
     private exchangeRatesService: ExchangeRatesService,
-    private currencyDetailsService: CurrencyDetailsService,
-    public dialog: MatDialog
   ) { }
 
   public ngOnInit(): void {
@@ -63,13 +57,8 @@ export class MainCurrencyPanelComponent implements OnInit, OnDestroy {
     this.exchangeRatesService.setBaseCurrency(this.baseCurrency);
   }
 
-  public openDialog(currencyButtonEvent: Event) {
-    const baseCurrency = currencyButtonEvent.target['id'];
-
-    this.currencyDetailsService.setCurrentCurrenciesPair(baseCurrency, this.exchangeRatesService.getBaseCurrency());
-    this.currencyDetailsService.getHistoricalExchangeRates();
-    const dialogRef = this.dialog.open(CurrencyDetailsComponent);
-    dialogRef.afterClosed().subscribe();
+  public createFullForexPair(currency: string): string {
+    return `${currency}/${this.baseCurrency}`;
   }
 
   private moveMainCurrenciesToTheBeggining(allCurrencies: string[]): string[] {

@@ -14,7 +14,8 @@ export class MajorsPanelComponent implements OnInit, OnDestroy {
   private majorCurrenciesData: Map<string, CurrencyInfo>;
   private majorCurrenciesSubscription: Subscription;
 
-  constructor(private exchangeRatesService: ExchangeRatesService) { }
+  constructor(
+    private exchangeRatesService: ExchangeRatesService) { }
 
   public ngOnInit(): void {
     this.majorCurrenciesSubscription = this.exchangeRatesService.getMajorCurrenciesSubject().subscribe(
@@ -34,5 +35,4 @@ export class MajorsPanelComponent implements OnInit, OnDestroy {
   public getValuesForPair(pair: string): CurrencyInfo {
     return this.majorCurrenciesData.get(pair);
   }
-
 }
