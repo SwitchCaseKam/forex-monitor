@@ -1,7 +1,7 @@
 import { Subscription } from 'rxjs';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CurrencyInfo } from '../services/exchange-rates.model';
-import { ExchangeRatesService } from '../services/exchange-rates.service';
+import { CurrencyInfo } from '../../services/exchange-rates.model';
+import { ExchangeRatesService } from '../../services/exchange-rates.service';
 
 @Component({
   selector: 'app-majors-panel',

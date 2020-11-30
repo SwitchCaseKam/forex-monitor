@@ -1,19 +1,10 @@
 <div class="exchanger-placeholder">
-  <div class="row">
-    <h4><b>Wymiana walut</b></h4><br>
-    <div class="col-lg-4">
+      <h4><b>Wymiana walut</b></h4>
       <div class='amount'>
-          <mat-form-field id='amount-field'>
-            <mat-label>Mam</mat-label>
-            <input type="number" matInput [(ngModel)]="amount" (keydown)="handleSelectionEvent($event)" required>
-          </mat-form-field><br>
-          <div><img src="assets/icons/money.ico" alt="Forex monitor"></div>
-        </div>
-
-    </div>
-
-    <div class="col-lg-6">
-
+        Mam <mat-form-field id='amount-field'>
+          <input type="number" matInput [(ngModel)]="amount" (keydown)="handleSelectionEvent($event)" required>
+        </mat-form-field><br>
+      </div>
         <div class='selects-form'>
 
           <div class='select-placeholder'>
@@ -65,7 +56,7 @@
             <button mat-button color="secondary" id='swap-currencies-button' (click)="swapFromAndToCurrencies()"><i class="fa fa-exchange"></i></button>
           </div>
         </div>
-        <br><br>
+        <br>
         <div class='exchange-result' *ngIf="exchageRateInfo">
           <h4>
             <b>{{ exchageRateInfo?.amount }} {{ exchageRateInfo?.fromCurrency }}</b>
@@ -85,8 +76,6 @@
 
 
     </div>
-  </div>
-</div>
 
 
 

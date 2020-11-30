@@ -113,7 +113,7 @@ export class ExchangeRatesService {
       this.majorsPairs.set(`${pairData.base}/${quotedCurrency}`, {
         value: latestValue,
         additionalInfo: {
-          percentageChange: (latestValue - yesterdayValue) / yesterdayValue,
+          percentageChange: (latestValue - yesterdayValue) / yesterdayValue * 100,
           valueChange: latestValue - yesterdayValue
         }
       });

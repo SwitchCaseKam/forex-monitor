@@ -1,0 +1,6 @@
+.majors-container {
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-radius: 25px;
+  padding: 0.2rem;
+}

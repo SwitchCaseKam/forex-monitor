@@ -15,11 +15,14 @@
 }
 
 .exchanger-placeholder {
-  background-color: #f4fbfd;
-  padding: 2rem;
+  /* background-color: #f4fbfd; */
+  padding: 1rem;
   border-radius: 25px;
-  /* border: 1px solid black */
+  /* border: 1px solid black; */
   /* display: flex; */
+  /* background-color: rgb(58, 57, 52); */
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
 }
 
 #amount-field {
@@ -30,7 +33,6 @@
 
 .amount {
   padding: 1rem;
-  float: left;
   border-radius: 25px;
 
 }

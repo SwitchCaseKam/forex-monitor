@@ -14,7 +14,10 @@ export enum HistoricalDates {
   A_WEEK_AGO = 0,
   A_MONTH_AGO = 1,
   THREE_MONTHS_AGO = 2,
-  A_YEAR_AGO = 3
+  A_YEAR_AGO = 3,
+  THREE_YEARS_AGO = 4,
+  FIVE_YEARS_AGO = 5,
+  TEN_YEARS_AGO = 6,
 }
 
 @Injectable({
@@ -51,6 +54,9 @@ export class CurrencyDetailsService {
     const dateAMonthAgo = new Date(Date.now() - 30 * 86400000).toISOString().split('T')[0];
     const date3MonthsAgo = new Date(Date.now() - 90 * 86400000).toISOString().split('T')[0];
     const dateAYearAgo = new Date(Date.now() - 365 * 86400000).toISOString().split('T')[0];
+    const date3YearsAgo = new Date(Date.now() - 3 * 365 * 86400000).toISOString().split('T')[0];
+    const date5YearsAgo = new Date(Date.now() - 5 * 365 * 86400000).toISOString().split('T')[0];
+    const date10YearsAgo = new Date(Date.now() - 10 * 365 * 86400000).toISOString().split('T')[0];
 
     forkJoin(
       this.exchangeRatesApiService.getHistoricalRatesWithBaseForSymbol(
@@ -59,8 +65,14 @@ export class CurrencyDetailsService {
         this.currentCurrencyPair.base, this.currentCurrencyPair.quote, dateAMonthAgo, dateToday),
       this.exchangeRatesApiService.getHistoricalRatesWithBaseForSymbol(
         this.currentCurrencyPair.base, this.currentCurrencyPair.quote, date3MonthsAgo, dateToday),
-        this.exchangeRatesApiService.getHistoricalRatesWithBaseForSymbol(
-          this.currentCurrencyPair.base, this.currentCurrencyPair.quote, dateAYearAgo, dateToday)
+      this.exchangeRatesApiService.getHistoricalRatesWithBaseForSymbol(
+        this.currentCurrencyPair.base, this.currentCurrencyPair.quote, dateAYearAgo, dateToday),
+      this.exchangeRatesApiService.getHistoricalRatesWithBaseForSymbol(
+        this.currentCurrencyPair.base, this.currentCurrencyPair.quote, date3YearsAgo, dateToday),
+      this.exchangeRatesApiService.getHistoricalRatesWithBaseForSymbol(
+        this.currentCurrencyPair.base, this.currentCurrencyPair.quote, date5YearsAgo, dateToday),
+      this.exchangeRatesApiService.getHistoricalRatesWithBaseForSymbol(
+        this.currentCurrencyPair.base, this.currentCurrencyPair.quote, date10YearsAgo, dateToday)
     ).pipe(take(1)).subscribe((historicalData: PeriodExchangesRatesApiModel[]) => {
       this.updateCurrencyPairHistoricalData(historicalData);
     });

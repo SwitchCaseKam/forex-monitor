@@ -7,3 +7,7 @@ mat-card {
   border: 0.05px rgb(170, 170, 170) solid;
   background-color: rgb(255, 255, 255);
 }
+
+button {
+  border: 1px solid black;
+}

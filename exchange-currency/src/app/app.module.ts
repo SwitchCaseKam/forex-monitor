@@ -17,9 +17,10 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { CurrencyDetailsComponent } from './components/currency-details/currency-details.component';
 import { ChartsModule } from 'ng2-charts';
 import { HistoryChartComponent } from './components/history-chart/history-chart.component';
-import { MajorsPanelComponent } from './majors-panel/majors-panel.component';
+import { MajorsPanelComponent } from './components/majors-panel/majors-panel.component';
 import { MatCardModule } from '@angular/material';
 import { ForexPairInfoCardComponent } from './components/forex-pair-info-card/forex-pair-info-card.component';
+import { InfoComponent } from './components/info/info.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { ForexPairInfoCardComponent } from './components/forex-pair-info-card/fo
     HistoryChartComponent,
     MajorsPanelComponent,
     ForexPairInfoCardComponent,
+    InfoComponent,
   ],
   imports: [
     BrowserModule,
