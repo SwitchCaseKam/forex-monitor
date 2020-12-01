@@ -18,9 +18,12 @@ import { CurrencyDetailsComponent } from './components/currency-details/currency
 import { ChartsModule } from 'ng2-charts';
 import { HistoryChartComponent } from './components/history-chart/history-chart.component';
 import { MajorsPanelComponent } from './components/majors-panel/majors-panel.component';
-import { MatCardModule } from '@angular/material';
+import { MatCardModule, MatNativeDateModule } from '@angular/material';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { ForexPairInfoCardComponent } from './components/forex-pair-info-card/forex-pair-info-card.component';
 import { InfoComponent } from './components/info/info.component';
+import { CalendarComponent } from './components/calendar/calendar.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +37,7 @@ import { InfoComponent } from './components/info/info.component';
     MajorsPanelComponent,
     ForexPairInfoCardComponent,
     InfoComponent,
+    CalendarComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,7 +50,10 @@ import { InfoComponent } from './components/info/info.component';
     MatButtonModule,
     MatDialogModule,
     ChartsModule,
-    MatCardModule
+    MatCardModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent],

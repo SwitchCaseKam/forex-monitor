@@ -30,6 +30,9 @@ export class ForexPairInfoCardComponent implements OnInit {
     const quotedCurrency = forexPairName.substring(4, 7);
 
     this.currencyDetailsService.setCurrentCurrenciesPair(baseCurrency, quotedCurrency);
+    this.currencyDetailsService.setCurrencyInfo({value: this.currentValue, additionalInfo: {
+      valueChange: this.lastValueChange, percentageChange: this.lastPercentageChange
+    }});
     this.currencyDetailsService.getHistoricalExchangeRates();
     const dialogRef = this.dialog.open(CurrencyDetailsComponent);
     dialogRef.afterClosed().subscribe();

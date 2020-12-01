@@ -9,11 +9,6 @@ export interface CurrencyChanges {
   valueChange: number;
 }
 
-export interface Currency {
-  name: string;
-  info: CurrencyInfo;
-}
-
 export interface ExchangeRateCurrencyInfo {
   amount: number;
   fromCurrency: string;

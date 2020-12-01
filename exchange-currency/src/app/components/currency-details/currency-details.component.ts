@@ -1,6 +1,6 @@
 import { CurrencyDetailsService, HistoricalData, HistoricalDates } from './../../services/currency-details.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { fullCurrenciesNamesMap } from 'src/app/services/exchange-rates.model';
+import { CurrencyInfo, fullCurrenciesNamesMap } from 'src/app/services/exchange-rates.model';
 import { take } from 'rxjs/operators';
 
 @Component({
@@ -15,6 +15,8 @@ export class CurrencyDetailsComponent implements OnInit, OnDestroy {
 
   public currencyData;
   public currencyDates;
+
+  public currencyInfo: CurrencyInfo;
 
   constructor(private currencyDetailsService: CurrencyDetailsService) { }
 
@@ -32,6 +34,8 @@ export class CurrencyDetailsComponent implements OnInit, OnDestroy {
         this.currencyDates = pairHistoricalData.dates;
       }
     );
+    this.currencyInfo = this.currencyDetailsService.getCurrencyInfo();
+    console.log(this.currencyInfo)
   }
 
   public ngOnDestroy() {

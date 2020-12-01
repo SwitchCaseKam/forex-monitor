@@ -1,9 +1,9 @@
 import { ExchangeRatesApiService } from './exchange-rates-api.service';
 import { Injectable } from '@angular/core';
-import { CurrencyPair } from './exchange-rates.model';
+import { CurrencyPair, CurrencyInfo } from './exchange-rates.model';
 import { take } from 'rxjs/operators';
 import { forkJoin, Observable, Subject } from 'rxjs';
-import { PeriodExchangesRatesApiModel } from './exchange-rates-api.model';
+import { ExchangesRatesApiModel, PeriodExchangesRatesApiModel } from './exchange-rates-api.model';
 
 export interface HistoricalData {
   dates: string[];
@@ -30,6 +30,11 @@ export class CurrencyDetailsService {
   private currencyPairHistoricalData: Map<HistoricalDates, HistoricalData> = new Map();
   private currencyPairHistoricalDataSubject: Subject<Map<HistoricalDates, HistoricalData>> = new Subject();
 
+  private currencyInfoForSelectedDate: CurrencyInfo;
+  private currencyInfoForSelectedDateSubject: Subject<CurrencyInfo> = new Subject();
+
+  private currencyInfo: CurrencyInfo;
+
   constructor(private exchangeRatesApiService: ExchangeRatesApiService) { }
 
   public getCurrentCurrency(): CurrencyPair {
@@ -40,12 +45,36 @@ export class CurrencyDetailsService {
     this.currentCurrencyPair = { base, quote };
   }
 
+  public setCurrencyInfo(currencyInfo: CurrencyInfo): void {
+    this.currencyInfo = currencyInfo;
+  }
+
   public getCurrencyPairHistoricalData(time: HistoricalDates): HistoricalData {
+    return this.currencyPairHistoricalData.get(time);
+  }
+
+  public getCurrencyDataForDate(): Observable<Map<number, HistoricalData>> {
+    return this.currencyPairHistoricalDataSubject;
+  }
+
+  public getCurrencyDataForSelectedDate(time: HistoricalDates): HistoricalData {
     return this.currencyPairHistoricalData.get(time);
   }
 
   public getCurrencyPairHistoricalDataSubject(): Observable<Map<number, HistoricalData>> {
     return this.currencyPairHistoricalDataSubject;
+  }
+
+  public getCurrencyInfoForSelectedDate(): CurrencyInfo {
+    return this.currencyInfoForSelectedDate;
+  }
+
+  public getCurrencyInfoForSelectedDateSubject(): Observable<CurrencyInfo> {
+    return this.currencyInfoForSelectedDateSubject;
+  }
+
+  public getCurrencyInfo(): CurrencyInfo {
+    return this.currencyInfo;
   }
 
   public getHistoricalExchangeRates(): void {
@@ -90,5 +119,18 @@ export class CurrencyDetailsService {
     });
     this.currencyPairHistoricalDataSubject.next(this.currencyPairHistoricalData);
 
+  }
+
+  public getCurrencyInfoForDate(date: string): void {
+    this.exchangeRatesApiService.getRatesForDateWithBaseAndSymbol(date,
+      this.currentCurrencyPair.base, this.currentCurrencyPair.quote).subscribe(
+        (currencyInfo: ExchangesRatesApiModel) => {
+          console.log(currencyInfo);
+          const currencyKey = Object.keys(currencyInfo.rates)[0];
+          console.log(currencyKey)
+          this.currencyInfoForSelectedDate = {value: currencyInfo.rates[currencyKey]};
+          this.currencyInfoForSelectedDateSubject.next(this.currencyInfoForSelectedDate);
+        }
+      );
   }
 }

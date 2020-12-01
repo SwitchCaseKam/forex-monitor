@@ -60,16 +60,4 @@ export class MainCurrencyPanelComponent implements OnInit, OnDestroy {
   public createFullForexPair(currency: string): string {
     return `${currency}/${this.baseCurrency}`;
   }
-
-  private moveMainCurrenciesToTheBeggining(allCurrencies: string[]): string[] {
-    const mainCurrencies = ['EUR', 'USD', 'GBP', 'CHF'];
-    mainCurrencies.forEach(cur => {
-      if (allCurrencies.includes(cur)) {
-        allCurrencies.splice(allCurrencies.indexOf(cur), 1);
-      }
-    });
-    const sortedCurrencies = mainCurrencies.concat(allCurrencies)
-    sortedCurrencies.splice(sortedCurrencies.indexOf(this.exchangeRatesService.getBaseCurrency()), 1);
-    return sortedCurrencies;
-  }
 }

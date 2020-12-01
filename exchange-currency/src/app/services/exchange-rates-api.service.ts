@@ -52,6 +52,7 @@ export class ExchangeRatesApiService {
   ): Observable<PeriodExchangesRatesApiModel> {
     const startAt = periodDates[0];
     const endAt = periodDates[1];
+    console.log('get historical rates', startAt, endAt)
     return this.http.get<PeriodExchangesRatesApiModel>(
       `${this.apiUrl}/${apiUrlEndpoints.HISTORY}?${apiUrlParameters.BASE}=${base}` +
       `&${apiUrlParameters.START_AT}=${startAt}&${apiUrlParameters.END_AT}=${endAt}`
@@ -68,6 +69,13 @@ export class ExchangeRatesApiService {
     );
   }
 
+  public getRatesForDateWithBaseAndSymbol(
+    date: string, base: string, symbols: string | string[]): Observable<ExchangesRatesApiModel> {
+    return this.http.get<ExchangesRatesApiModel>(`${this.apiUrl}/${date}?` +
+      `${apiUrlParameters.BASE}=${base}&${apiUrlParameters.SYMBOLS}=${symbols}`
+    );
+  }
+
   private getDefaultPeriodDates(): string[] {
     const currentHour = Number(new Date(Date.now()).toISOString().split('T')[1].split(':')[0].toString());
     let todayDate = new Date(Date.now()).toISOString().split('T')[0];
@@ -75,11 +83,11 @@ export class ExchangeRatesApiService {
     let twoDaysBefore = new Date(Date.now() - 2 * 86400000).toISOString().split('T')[0];
     const dayInWeek = new Date(Date.now()).getDay();
 
-    if (dayInWeek === 1) {
+    if (dayInWeek === 1 ) {
       todayDate = new Date(Date.now()).toISOString().split('T')[0];
       oneDayBefore = new Date(Date.now() - 3 * 86400000).toISOString().split('T')[0];
       twoDaysBefore = new Date(Date.now() - 4 * 86400000).toISOString().split('T')[0];
-      return currentHour >= 17 ? [oneDayBefore, todayDate] : [twoDaysBefore, oneDayBefore];
+      return currentHour >= 16 ? [oneDayBefore, todayDate] : [twoDaysBefore, oneDayBefore];
     } else if (dayInWeek === 0) {
       oneDayBefore = new Date(Date.now() - 3 * 86400000).toISOString().split('T')[0];
       twoDaysBefore = new Date(Date.now() - 4 * 86400000).toISOString().split('T')[0];
@@ -89,6 +97,6 @@ export class ExchangeRatesApiService {
       twoDaysBefore = new Date(Date.now() - 2 * 86400000).toISOString().split('T')[0];
       return [twoDaysBefore, oneDayBefore];
     }
-    return currentHour >= 17 ? [oneDayBefore, todayDate] : [twoDaysBefore, oneDayBefore];
+    return currentHour >= 16 ? [oneDayBefore, todayDate] : [twoDaysBefore, oneDayBefore];
   }
 }
