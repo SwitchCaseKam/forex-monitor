@@ -1,3 +1,11 @@
-.info-right-corner {
+.title-container {
+  float: left
+}
+
+.title-container-currency-rates {
   float: right
+}
+
+.mat-typography {
+  display: inline-block;
 }

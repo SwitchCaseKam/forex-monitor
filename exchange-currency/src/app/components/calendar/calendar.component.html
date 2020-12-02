@@ -1,13 +1,12 @@
 <div class='calendar-container'>
-  {{ selectedDate }}
   <mat-form-field class="example-full-width" appearance="fill">
     <mat-label>Zmień datę</mat-label>
-    <input matInput [matDatepicker]="picker" (dateChange)='changeDataEvent($event)'>
+    <input matInput [matDatepicker]="picker" value="{{ selectedDate }}" (dateChange)='changeDataEvent($event)'>
     <mat-datepicker-toggle matSuffix [for]="picker">
 
     </mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
-  <b>{{ valueForSelectedDate }}</b>
+  <h3>Kurs na dzień <b>{{ selectedDate }}</b> wynosi <b>{{ currencyInfo?.value }}</b></h3>
 </div>
 

@@ -12,7 +12,7 @@ import { CurrencyInfo } from 'src/app/services/exchange-rates.model';
 export class CalendarComponent implements OnInit {
 
   public selectedDate: string = new Date(Date.now()).toISOString().split('T')[0];
-  public valueForSelectedDate: number;
+  public currencyInfo: CurrencyInfo;
 
   constructor(private currencyDetailsService: CurrencyDetailsService ) { }
 
@@ -21,15 +21,22 @@ export class CalendarComponent implements OnInit {
     this.currencyDetailsService.getCurrencyInfoForDate(this.selectedDate);
     this.currencyDetailsService.getCurrencyInfoForSelectedDateSubject().pipe(take(1)).subscribe(
       (currencyInfo: CurrencyInfo) => {
-        this.valueForSelectedDate = currencyInfo.value;
+        this.currencyInfo = currencyInfo;
       }
     );
   }
 
   public changeDataEvent(event): void {
-    const selectedDate = new Date(event['value']).toISOString().split('T')[0];
+    const epoch = Number(new Date(event['value']).valueOf()) + 86400000;
+    console.log('date: ', new Date(epoch))
+    const selectedDate = new Date(epoch).toISOString().split('T')[0];
     this.selectedDate = selectedDate;
     this.currencyDetailsService.getCurrencyInfoForDate(selectedDate);
+    this.currencyDetailsService.getCurrencyInfoForSelectedDateSubject().pipe(take(1)).subscribe(
+      (currencyInfo: CurrencyInfo) => {
+        this.currencyInfo = currencyInfo;
+      }
+    );
   }
 
 }

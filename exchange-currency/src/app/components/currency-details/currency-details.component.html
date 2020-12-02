@@ -1,46 +1,55 @@
-<h2 mat-dialog-title>
-  <img src='https://www.countryflags.io/{{currentCurrencyPair.substring(0,2)}}/flat/64.png'>
-  <img src='https://www.countryflags.io/{{currentCurrencyPair.substring(3,6)}}/flat/64.png'>
-  <b>  {{ currentCurrencyPair }}</b>
-  <h6>{{ currentCurrencyPairFullName }}</h6>
-</h2>
-
-<mat-dialog-content class="mat-typography">
-  <div class="row">
-
-    <div class="col-lg-8">
-      <ng-container *ngIf="!currencyData"><mat-spinner></mat-spinner></ng-container>
-      <ng-container *ngIf="currencyData">
-        <app-history-chart [dataSet]="currencyData" [dates]="currencyDates"></app-history-chart>
-        Zmień przedział czasowy:
-        <button (click)="changeDataSet(0)">Tydzień</button>
-        <button (click)="changeDataSet(1)">Miesiąc</button>
-        <button (click)="changeDataSet(2)">3 miesiące</button>
-        <button (click)="changeDataSet(3)">Rok</button>
-        <button (click)="changeDataSet(4)">3 lata</button>
-        <button (click)="changeDataSet(5)">5 lat</button>
-        <button (click)="changeDataSet(6)">10 lat</button>
-    </ng-container>
+<ng-container *ngIf="!currencyData"><mat-spinner></mat-spinner></ng-container>
+<ng-container *ngIf="currencyData">
+  <h2 mat-dialog-title>
+    <div class='title-container'>
+      <img src='https://www.countryflags.io/{{currentCurrencyPair.substring(0,2)}}/flat/64.png'>
+      <img src='https://www.countryflags.io/{{currentCurrencyPair.substring(3,6)}}/flat/64.png'>
+      <b>  {{ currentCurrencyPair }}</b>
+      <h6>{{ currentCurrencyPairFullName }}</h6>
     </div>
-    <div class="col-lg-4">
-      <ng-container *ngIf="currencyInfo.value > 0">
+    <div class='title-container-currency-rates'>
+      <h6>
+      <ng-container *ngIf="currencyInfo?.additionalInfo?.valueChange > 0">
         <img src="assets/icons/green-up-arrow.ico">
       </ng-container>
-      <ng-container *ngIf="currencyInfo.value < 0">
+      <ng-container *ngIf="currencyInfo?.additionalInfo?.valueChange < 0">
         <img src="assets/icons/red-down-arrow.ico">
-      </ng-container><br>
-      <h3><b>{{ currencyInfo.value }} {{currentCurrencyPair.substring(4,7)}}</b></h3><br>
-      <p>{{ currencyInfo.additionalInfo.valueChange }} {{currentCurrencyPair.substring(4,7)}} <br>
-         {{ currencyInfo.additionalInfo.percentageChange }}%</p>
+      </ng-container>
 
-      <app-calendar></app-calendar>
+        <b>{{ currencyInfo?.value }} {{currentCurrencyPair.substring(4,7)}}</b><br>
+        {{ currencyInfo?.additionalInfo.valueChange }} {{currentCurrencyPair.substring(4,7)}} <br>
+        {{ currencyInfo?.additionalInfo.percentageChange }}%
+      </h6>
     </div>
-  </div>
+  </h2>
   <br>
-  </mat-dialog-content>
-<mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Zamknij</button>
-</mat-dialog-actions>
+
+  <mat-dialog-content class="mat-typography">
+    <div class="row">
+      <div class="col-lg-8">
+        <br>
+          <app-history-chart [dataSet]="currencyData" [dates]="currencyDates"></app-history-chart>
+          Zmień przedział czasowy:
+          <button (click)="changeDataSet(0)">Tydzień</button>
+          <button (click)="changeDataSet(1)">Miesiąc</button>
+          <button (click)="changeDataSet(2)">3 miesiące</button>
+          <button (click)="changeDataSet(3)">Rok</button>
+          <button (click)="changeDataSet(4)">3 lata</button>
+          <button (click)="changeDataSet(5)">5 lat</button>
+          <button (click)="changeDataSet(6)">10 lat</button>
+      </div>
+      <div class="col-lg-4">
+        <br>
+        <app-calendar></app-calendar>
+      </div>
+    </div>
+    <br>
+    </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Zamknij</button>
+  </mat-dialog-actions>
+</ng-container>
+
 
 
 <!-- Copyright 2020 Google LLC. All Rights Reserved.
