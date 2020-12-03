@@ -10,11 +10,8 @@ import { Color, Label, ThemeService } from 'ng2-charts';
 })
 export class HistoryChartComponent implements OnInit, OnDestroy {
 
-  @Input()
-  public dataSet;
-
-  @Input()
-  public dates;
+  @Input() public dataSet;
+  @Input() public dates;
 
   lineChartLabels: string[];
   lineChartOptions = {

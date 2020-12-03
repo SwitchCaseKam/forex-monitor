@@ -1,8 +1,5 @@
 .container {
-  /* background-color: #ffffff; */
   padding: 0.5rem;
-  /* border-radius: 25px; */
-  /* border-top: 1px solid black; */
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
 }

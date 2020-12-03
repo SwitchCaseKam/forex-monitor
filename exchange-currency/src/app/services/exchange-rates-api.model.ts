@@ -10,3 +10,15 @@ export class PeriodExchangesRatesApiModel {
   startAt: string;
   endAt: string;
 }
+
+export enum apiUrlEndpoints {
+  LATEST = 'latest',
+  HISTORY = 'history'
+}
+
+export enum apiUrlParameters {
+  SYMBOLS = 'symbols',
+  BASE = 'base',
+  START_AT = 'start_at',
+  END_AT = 'end_at',
+}

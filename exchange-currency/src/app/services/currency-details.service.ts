@@ -85,7 +85,6 @@ export class CurrencyDetailsService {
     const dateAYearAgo = new Date(Date.now() - 365 * 86400000).toISOString().split('T')[0];
     const date3YearsAgo = new Date(Date.now() - 3 * 365 * 86400000).toISOString().split('T')[0];
     const date5YearsAgo = new Date(Date.now() - 5 * 365 * 86400000).toISOString().split('T')[0];
-    const date10YearsAgo = new Date(Date.now() - 10 * 365 * 86400000).toISOString().split('T')[0];
 
     forkJoin(
       this.exchangeRatesApiService.getHistoricalRatesWithBaseForSymbol(
@@ -100,8 +99,7 @@ export class CurrencyDetailsService {
         this.currentCurrencyPair.base, this.currentCurrencyPair.quote, date3YearsAgo, dateToday),
       this.exchangeRatesApiService.getHistoricalRatesWithBaseForSymbol(
         this.currentCurrencyPair.base, this.currentCurrencyPair.quote, date5YearsAgo, dateToday),
-      this.exchangeRatesApiService.getHistoricalRatesWithBaseForSymbol(
-        this.currentCurrencyPair.base, this.currentCurrencyPair.quote, date10YearsAgo, dateToday)
+
     ).pipe(take(1)).subscribe((historicalData: PeriodExchangesRatesApiModel[]) => {
       this.updateCurrencyPairHistoricalData(historicalData);
     });

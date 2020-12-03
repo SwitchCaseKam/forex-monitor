@@ -15,12 +15,8 @@
 }
 
 .exchanger-placeholder {
-  /* background-color: #f4fbfd; */
   padding: 1rem;
   border-radius: 25px;
-  /* border: 1px solid black; */
-  /* display: flex; */
-  /* background-color: rgb(58, 57, 52); */
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
 }
@@ -40,18 +36,6 @@
 .col {
   padding: 0.2rem;
 }
-/*
-#to-field {
-  background-color: white;
-  border: 2px solid;
-  height: 3rem;
-} */
-
-/* #from-field {
-  background-color: white;
-  border: 2px solid;
-  height: 3rem;
-} */
 
 .exchange-icon {
   display: inline-block;
@@ -105,8 +89,6 @@
   text-align: center;
   border: 0px;
 }
-
-
 
 .container {
   border-radius: 25px;

@@ -94,19 +94,15 @@ export class ExchangeRatesService {
       this.exchangeRatesApiService.getHistoricalRatesWithBaseForSymbol('GBP', 'USD'),
       this.exchangeRatesApiService.getHistoricalRatesWithBaseForSymbol('USD', 'CHF')
     ).pipe(take(1)).subscribe((majorPairs: PeriodExchangesRatesApiModel[]) => {
-      console.log(majorPairs);
       this.updateMajorPairsData(majorPairs);
-
     });
   }
 
   private updateMajorPairsData(majorPairsData: PeriodExchangesRatesApiModel[]): void {
     majorPairsData.forEach((pairData: PeriodExchangesRatesApiModel) => {
-      console.log(pairData.rates)
       const periodDates = Object.keys(pairData.rates);
       const yesterdayData = pairData.rates[periodDates[0]];
       const todayData = pairData.rates[periodDates[1]];
-      console.log(periodDates)
       const quotedCurrency = Object.keys(todayData)[0];
       const latestValue = todayData[quotedCurrency];
       const yesterdayValue = yesterdayData[quotedCurrency];

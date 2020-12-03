@@ -1,19 +1,7 @@
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { PeriodExchangesRatesApiModel, ExchangesRatesApiModel } from './exchange-rates-api.model';
-
-enum apiUrlEndpoints {
-  LATEST = 'latest',
-  HISTORY = 'history'
-}
-
-enum apiUrlParameters {
-  SYMBOLS = 'symbols',
-  BASE = 'base',
-  START_AT = 'start_at',
-  END_AT = 'end_at',
-}
+import { PeriodExchangesRatesApiModel, ExchangesRatesApiModel, apiUrlEndpoints, apiUrlParameters } from './exchange-rates-api.model';
 
 @Injectable({
   providedIn: 'root'
@@ -52,7 +40,6 @@ export class ExchangeRatesApiService {
   ): Observable<PeriodExchangesRatesApiModel> {
     const startAt = periodDates[0];
     const endAt = periodDates[1];
-    console.log('get historical rates', startAt, endAt)
     return this.http.get<PeriodExchangesRatesApiModel>(
       `${this.apiUrl}/${apiUrlEndpoints.HISTORY}?${apiUrlParameters.BASE}=${base}` +
       `&${apiUrlParameters.START_AT}=${startAt}&${apiUrlParameters.END_AT}=${endAt}`
@@ -77,26 +64,23 @@ export class ExchangeRatesApiService {
   }
 
   private getDefaultPeriodDates(): string[] {
-    const currentHour = Number(new Date(Date.now()).toISOString().split('T')[1].split(':')[0].toString());
-    let todayDate = new Date(Date.now()).toISOString().split('T')[0];
-    let oneDayBefore = new Date(Date.now() - 86400000).toISOString().split('T')[0];
-    let twoDaysBefore = new Date(Date.now() - 2 * 86400000).toISOString().split('T')[0];
-    const dayInWeek = new Date(Date.now()).getDay();
-
-    if (dayInWeek === 1 ) {
-      todayDate = new Date(Date.now()).toISOString().split('T')[0];
-      oneDayBefore = new Date(Date.now() - 3 * 86400000).toISOString().split('T')[0];
-      twoDaysBefore = new Date(Date.now() - 4 * 86400000).toISOString().split('T')[0];
-      return currentHour >= 16 ? [oneDayBefore, todayDate] : [twoDaysBefore, oneDayBefore];
-    } else if (dayInWeek === 0) {
-      oneDayBefore = new Date(Date.now() - 3 * 86400000).toISOString().split('T')[0];
-      twoDaysBefore = new Date(Date.now() - 4 * 86400000).toISOString().split('T')[0];
-      return [twoDaysBefore, oneDayBefore];
-    } else if (dayInWeek === 6) {
-      oneDayBefore = new Date(Date.now() - 86400000).toISOString().split('T')[0];
-      twoDaysBefore = new Date(Date.now() - 2 * 86400000).toISOString().split('T')[0];
-      return [twoDaysBefore, oneDayBefore];
+    const currentHour = Number(new Date(Date.now()).getHours());
+    const currentDayNumber = new Date(Date.now()).getDay();
+    switch (currentDayNumber) {
+      case 0: // Sunday
+        return [this.getDate(3), this.getDate(2)];
+      case 1: // Monday
+        return currentHour >= 17 ?  [this.getDate(3), this.getDate(0)] : [this.getDate(4), this.getDate(3)];
+      case 2: // Tuesday
+        return currentHour >= 17 ?  [this.getDate(1), this.getDate(0)] : [this.getDate(4), this.getDate(1)];
+      case 6: // Saturday
+        return [this.getDate(2), this.getDate(1)];
+      default:
+        return currentHour >= 17 ?  [this.getDate(1), this.getDate(0)] : [this.getDate(2), this.getDate(1)];
     }
-    return currentHour >= 16 ? [oneDayBefore, todayDate] : [twoDaysBefore, oneDayBefore];
+  }
+
+  private getDate(numberOfDaysAgo: number = 0): string {
+    return new Date(Date.now() - numberOfDaysAgo * 86400000).toISOString().split('T')[0];
   }
 }
