@@ -17,7 +17,6 @@ export class CalendarComponent implements OnInit {
   constructor(private currencyDetailsService: CurrencyDetailsService ) { }
 
   ngOnInit() {
-    console.log('CALENDAR')
     this.currencyDetailsService.getCurrencyInfoForDate(this.selectedDate);
     this.currencyDetailsService.getCurrencyInfoForSelectedDateSubject().pipe(take(1)).subscribe(
       (currencyInfo: CurrencyInfo) => {
@@ -28,7 +27,6 @@ export class CalendarComponent implements OnInit {
 
   public changeDataEvent(event): void {
     const epoch = Number(new Date(event['value']).valueOf()) + 86400000;
-    console.log('date: ', new Date(epoch))
     const selectedDate = new Date(epoch).toISOString().split('T')[0];
     this.selectedDate = selectedDate;
     this.currencyDetailsService.getCurrencyInfoForDate(selectedDate);

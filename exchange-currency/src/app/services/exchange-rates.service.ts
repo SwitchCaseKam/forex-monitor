@@ -79,7 +79,6 @@ export class ExchangeRatesService {
       mergeMap(exchangesRates => this.exchangeRatesApiService.getHistoricalRatesForPeriod(this.baseCurrency))
     ).subscribe(
       (periodExchangesRates: PeriodExchangesRatesApiModel) => {
-        console.log(periodExchangesRates)
         this.updateCurrienciesDataWithPeriodChanges(periodExchangesRates);
         this.currenciesSubject.next(this.currencies);
         this.updateMainCurrencies();

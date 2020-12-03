@@ -79,12 +79,12 @@ export class CurrencyDetailsService {
 
   public getHistoricalExchangeRates(): void {
     const dateToday = new Date(Date.now()).toISOString().split('T')[0];
-    const dateAWeekAgo = new Date(Date.now() - 7 * 86400000).toISOString().split('T')[0];
-    const dateAMonthAgo = new Date(Date.now() - 30 * 86400000).toISOString().split('T')[0];
-    const date3MonthsAgo = new Date(Date.now() - 90 * 86400000).toISOString().split('T')[0];
-    const dateAYearAgo = new Date(Date.now() - 365 * 86400000).toISOString().split('T')[0];
-    const date3YearsAgo = new Date(Date.now() - 3 * 365 * 86400000).toISOString().split('T')[0];
-    const date5YearsAgo = new Date(Date.now() - 5 * 365 * 86400000).toISOString().split('T')[0];
+    const dateAWeekAgo = this.exchangeRatesApiService.getDate(7);
+    const dateAMonthAgo = this.exchangeRatesApiService.getDate(30);
+    const date3MonthsAgo = this.exchangeRatesApiService.getDate(90);
+    const dateAYearAgo = this.exchangeRatesApiService.getDate(365);
+    const date3YearsAgo = this.exchangeRatesApiService.getDate(3 * 365);
+    const date5YearsAgo = this.exchangeRatesApiService.getDate(5 * 365);
 
     forkJoin(
       this.exchangeRatesApiService.getHistoricalRatesWithBaseForSymbol(
@@ -113,7 +113,7 @@ export class CurrencyDetailsService {
       valuesObjects.forEach((value) => {
         values.push(value[this.currentCurrencyPair.quote]);
       });
-      this.currencyPairHistoricalData.set(index, {dates, values})
+      this.currencyPairHistoricalData.set(index, {dates, values});
     });
     this.currencyPairHistoricalDataSubject.next(this.currencyPairHistoricalData);
 
@@ -123,9 +123,7 @@ export class CurrencyDetailsService {
     this.exchangeRatesApiService.getRatesForDateWithBaseAndSymbol(date,
       this.currentCurrencyPair.base, this.currentCurrencyPair.quote).subscribe(
         (currencyInfo: ExchangesRatesApiModel) => {
-          console.log(currencyInfo);
           const currencyKey = Object.keys(currencyInfo.rates)[0];
-          console.log(currencyKey)
           this.currencyInfoForSelectedDate = {value: currencyInfo.rates[currencyKey]};
           this.currencyInfoForSelectedDateSubject.next(this.currencyInfoForSelectedDate);
         }

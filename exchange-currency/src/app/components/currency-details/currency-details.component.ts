@@ -1,5 +1,5 @@
 import { CurrencyDetailsService, HistoricalData, HistoricalDates } from './../../services/currency-details.service';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CurrencyInfo, fullCurrenciesNamesMap } from 'src/app/services/exchange-rates.model';
 import { take } from 'rxjs/operators';
 
@@ -8,7 +8,7 @@ import { take } from 'rxjs/operators';
   templateUrl: './currency-details.component.html',
   styleUrls: ['./currency-details.component.css']
 })
-export class CurrencyDetailsComponent implements OnInit, OnDestroy {
+export class CurrencyDetailsComponent implements OnInit {
 
   public currentCurrencyPair: string;
   public currentCurrencyPairFullName: string;
@@ -21,7 +21,6 @@ export class CurrencyDetailsComponent implements OnInit, OnDestroy {
   constructor(private currencyDetailsService: CurrencyDetailsService) { }
 
   public ngOnInit() {
-    console.log('currency details ON INIT');
     const currentPair = this.currencyDetailsService.getCurrentCurrency();
     this.currentCurrencyPair = `${currentPair.base}/${currentPair.quote}`;
     this.currentCurrencyPairFullName = `${fullCurrenciesNamesMap.get(currentPair.base)} / ${fullCurrenciesNamesMap.get(currentPair.quote)}`;
@@ -35,11 +34,6 @@ export class CurrencyDetailsComponent implements OnInit, OnDestroy {
       }
     );
     this.currencyInfo = this.currencyDetailsService.getCurrencyInfo();
-    console.log(this.currencyInfo)
-  }
-
-  public ngOnDestroy() {
-    console.log('currency details ON DESTROY');
   }
 
   public changeDataSet(num: number): void {

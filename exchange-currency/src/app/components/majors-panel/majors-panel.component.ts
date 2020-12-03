@@ -20,10 +20,8 @@ export class MajorsPanelComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     this.majorCurrenciesSubscription = this.exchangeRatesService.getMajorCurrenciesSubject().subscribe(
       (majorPairsData: Map<string, CurrencyInfo>) => {
-        console.log(majorPairsData)
         this.majorCurrenciesData = majorPairsData;
         this.majorPairs = Array.from(this.majorCurrenciesData.keys());
-        console.log(this.majorCurrenciesData)
       }
     );
   }

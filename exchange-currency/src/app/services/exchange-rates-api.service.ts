@@ -13,6 +13,27 @@ export class ExchangeRatesApiService {
 
   constructor(private http: HttpClient) { }
 
+  public getDefaultPeriodDates(): string[] {
+    const currentHour = Number(new Date(Date.now()).getHours());
+    const currentDayNumber = new Date(Date.now()).getDay();
+    switch (currentDayNumber) {
+      case 0: // Sunday
+        return [this.getDate(3), this.getDate(2)];
+      case 1: // Monday
+        return currentHour >= 17 ?  [this.getDate(3), this.getDate(0)] : [this.getDate(4), this.getDate(3)];
+      case 2: // Tuesday
+        return currentHour >= 17 ?  [this.getDate(1), this.getDate(0)] : [this.getDate(4), this.getDate(1)];
+      case 6: // Saturday
+        return [this.getDate(2), this.getDate(1)];
+      default:
+        return currentHour >= 17 ?  [this.getDate(1), this.getDate(0)] : [this.getDate(2), this.getDate(1)];
+    }
+  }
+
+  public getDate(numberOfDaysAgo: number = 0): string {
+    return new Date(Date.now() - numberOfDaysAgo * 86400000).toISOString().split('T')[0];
+  }
+
   // Get the latest foreign exchange reference rates.
   public getLatesteRates(): Observable<ExchangesRatesApiModel> {
     return this.http.get<ExchangesRatesApiModel>(`${this.apiUrl}/${apiUrlEndpoints.LATEST}`);
@@ -61,26 +82,5 @@ export class ExchangeRatesApiService {
     return this.http.get<ExchangesRatesApiModel>(`${this.apiUrl}/${date}?` +
       `${apiUrlParameters.BASE}=${base}&${apiUrlParameters.SYMBOLS}=${symbols}`
     );
-  }
-
-  private getDefaultPeriodDates(): string[] {
-    const currentHour = Number(new Date(Date.now()).getHours());
-    const currentDayNumber = new Date(Date.now()).getDay();
-    switch (currentDayNumber) {
-      case 0: // Sunday
-        return [this.getDate(3), this.getDate(2)];
-      case 1: // Monday
-        return currentHour >= 17 ?  [this.getDate(3), this.getDate(0)] : [this.getDate(4), this.getDate(3)];
-      case 2: // Tuesday
-        return currentHour >= 17 ?  [this.getDate(1), this.getDate(0)] : [this.getDate(4), this.getDate(1)];
-      case 6: // Saturday
-        return [this.getDate(2), this.getDate(1)];
-      default:
-        return currentHour >= 17 ?  [this.getDate(1), this.getDate(0)] : [this.getDate(2), this.getDate(1)];
-    }
-  }
-
-  private getDate(numberOfDaysAgo: number = 0): string {
-    return new Date(Date.now() - numberOfDaysAgo * 86400000).toISOString().split('T')[0];
   }
 }
