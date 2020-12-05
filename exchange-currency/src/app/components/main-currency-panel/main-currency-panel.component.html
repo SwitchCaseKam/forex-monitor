@@ -1,11 +1,11 @@
 <div class='container'>
-  <b>Kursy walut wyznaczone dla: {{baseCurrency}}</b>  <img src='https://www.countryflags.io/{{baseCurrency?.substring(0,2)}}/flat/64.png'><br><br>
+  <b>Kursy walut wyznaczone dla: {{baseCurrency}}</b> <img src='https://flagcdn.com/64x48/{{baseCurrency.toLowerCase().substring(0,2)}}.png'><br><br>
   Zmień walutę odniesienia:
   <select id="base-currency" (change)="handleSelectionEvent($event)"><br><br>
     <option value="PLN">PLN polski złoty</option>
     <ng-container *ngFor="let currencyName of availableCurrencies">
       <option value="{{currencyName}}">
-        <img src='https://www.countryflags.io/{{currencyName.substring(0,2)}}/flat/64.png'>
+        <img src='https://flagcdn.com/64x48/{{currencyName.toLowerCase().substring(0,2)}}.png'>
         {{ currencyName }} {{currencies.get(currencyName).name}}</option>
     </ng-container>
   </select>

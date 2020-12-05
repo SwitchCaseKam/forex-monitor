@@ -2,8 +2,8 @@
 <ng-container *ngIf="currencyData">
   <h2 mat-dialog-title>
     <div class='title-container'>
-      <img src='https://www.countryflags.io/{{currentCurrencyPair.substring(0,2)}}/flat/64.png'>
-      <img src='https://www.countryflags.io/{{currentCurrencyPair.substring(3,6)}}/flat/64.png'>
+      <img src='https://flagcdn.com/64x48/{{currentCurrencyPair.toLowerCase().substring(0,2)}}.png'>
+      <img src='https://flagcdn.com/64x48/{{currentCurrencyPair.toLowerCase().substring(3,6)}}.png'>
       <b>  {{ currentCurrencyPair }}</b>
       <h6>{{ currentCurrencyPairFullName }}</h6>
     </div>

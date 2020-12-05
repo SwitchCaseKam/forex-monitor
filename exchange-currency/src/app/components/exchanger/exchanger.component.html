@@ -13,7 +13,7 @@
                 <mat-option value="PLN"><b>PLN</b> {{currenciesFullNames?.get('PLN')}}</mat-option>
                 <ng-container *ngFor="let currencyName of availableCurrencies">
                   <mat-option value="{{currencyName}}">
-                    <img src='https://www.countryflags.io/{{currencyName.substring(0,2)}}/flat/64.png'>
+                    <img src='https://flagcdn.com/64x48/{{currencyName.toLowerCase().substring(0,2)}}.png'>
                     {{ currencyName }} {{currenciesFullNames?.get(currencyName)}}
                   </mat-option>
                 </ng-container>
@@ -22,7 +22,7 @@
               </mat-form-field>
               <br>
               <div class='flag-icon'>
-                <img src='https://www.countryflags.io/{{fromCurrency.substring(0,2)}}/flat/64.png'>
+                <img src='https://flagcdn.com/64x48/{{fromCurrency.toLowerCase().substring(0,2)}}.png'>
               </div>
           </div>
 
@@ -33,7 +33,7 @@
                     <mat-option value="EUR"><b>EUR</b> {{currenciesFullNames?.get('EUR')}}</mat-option>
                     <ng-container *ngFor="let currencyName of availableCurrencies">
                       <mat-option value="{{currencyName}}">
-                        <img src='https://www.countryflags.io/{{currencyName.substring(0,2)}}/flat/64.png'>
+                        <img src='https://flagcdn.com/64x48/{{currencyName.toLowerCase().toLowerCase().substring(0,2)}}.png'>
                         {{ currencyName }} {{currenciesFullNames?.get(currencyName)}}
                       </mat-option>
                     </ng-container>
@@ -43,7 +43,7 @@
                 </mat-form-field>
                 <br>
                 <div class='flag-icon'>
-                  <img src='https://www.countryflags.io/{{toCurrency.substring(0,2)}}/flat/64.png'>
+                  <img src='https://flagcdn.com/64x48/{{toCurrency.toLowerCase().toLowerCase().substring(0,2)}}.png'>
                 </div>
 
           </div>
