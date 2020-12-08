@@ -1,6 +1,5 @@
 # [Forex Monitor](https://switchcasekam.github.io/forex-monitor/)
 ---
-Project in progress ...
 
 # Main information
 ---
@@ -10,3 +9,8 @@ Project of web application for monitoring the forex market. You can find there e
 # Forex data
 ---
 Application uses exchange rates API. Exchange rates API is a free service for current and historical foreign exchange rates published by the European Central Bank https://exchangeratesapi.io/.
+
+# Installation
+- clone repo
+- npm install
+- ng serve -o
